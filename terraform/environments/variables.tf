@@ -1,12 +1,12 @@
 variable "aws_profile" {
-  default = "default"
+  default = "wawo"
 }
 variable "aws_region" {
   default = "us-east-1"
 }
 variable "heroku_team" {
   description = "Name of the Team (must already exist)"
-  default ="lightmatter"
+  default ="wawo"
 }
 variable "app_name" {
   description = "base name of the application"
