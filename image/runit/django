@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+cd /app/
+PID=/app/gunicorn.pid
+
+if [ -f $PID ]; then rm $PID; fi
+
+if [[ "$ENVIRONMENT" == "local" ]]; then
+    exec python3.8 manage.py runserver 0.0.0.0:8000
+else
+    exec gunicorn wawo.wawo.asgi:application --bind 0.0.0.0:8000  -k uvicorn.workers.UvicornWorker --pid=$PID --access-logfile - --preload
+fi

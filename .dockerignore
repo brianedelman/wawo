@@ -1,0 +1,14 @@
+.*
+!.git
+!.coveragerc
+!.env
+!.pylintrc
+node_modules
+*.pyc
+*.pyo
+/.env
+/data
+/static_collected
+/node_modules
+/wawo/static
+.DS_Store

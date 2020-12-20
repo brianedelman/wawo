@@ -1,0 +1,94 @@
+{
+  "name": "wawo",
+  "version": "0.1.0",
+  "description": "",
+  "author": "We Are Women Owned Team",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=10.14.2"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "debug": "NODE_OPTIONS='--inspect=0.0.0.0:9229' next",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.1",
+    "@testing-library/react": "^10.4.7",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
+    "cypress": "^4.11.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.5.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.4",
+    "husky": "^4.2.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.1.0",
+    "jest-junit": "^11.1.0",
+    "jest-watch-typeahead": "^0.6.0",
+    "lint-staged": "^10.2.11",
+    "miragejs": "^0.1.40",
+    "prettier": "^2.0.5",
+    "react-test-renderer": "^16.13.1"
+  },
+  "dependencies": {
+    "@date-io/date-fns": "^2.8.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@sentry/browser": "^5.20.1",
+    "@sentry/node": "^5.20.1",
+    "@sentry/webpack-plugin": "^1.12.0",
+    "@zeit/next-source-maps": "^0.0.3",
+    "axios": "^0.19.2",
+    "axios-case-converter": "^0.6.0",
+    "clsx": "^1.1.1",
+    "constate": "^2.0.0",
+    "dotenv": "^8.2.0",
+    "formik": "^2.1.5",
+    "formik-material-ui": "^2.0.1",
+    "import": "^0.0.6",
+    "interweave": "^12.5.0",
+    "material-ui-popup-state": "^1.6.1",
+    "next": "^10.0.2",
+    "next-build-id": "^3.0.0",
+    "notistack": "^0.9.17",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "swr": "^0.2.3",
+    "yup": "^0.28.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "NODE_ENV=production lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md,css,scss}": [
+      "prettier --config .prettierrc.json --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint src/**/*.js --fix",
+      "eslint src/**/*.jsx --fix"
+    ],
+    "*.py": [
+      "isort wawo/**/*.py",
+      "black --exclude=/migrations/ wawo/"
+    ]
+  },
+  "eslintIgnore": [
+    "__tests__"
+  ]
+}
