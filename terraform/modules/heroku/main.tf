@@ -89,7 +89,7 @@ resource "heroku_app_config_association" "aws" {
 
 resource "heroku_addon" "database" {
   app  = heroku_app.app.name
-  plan = "heroku-postgresql:standard-0"
+  plan = "heroku-postgresql:hobby-dev"
 }
 resource "heroku_addon" "cache" {
   app  = heroku_app.app.name

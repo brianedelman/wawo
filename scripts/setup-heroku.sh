@@ -33,5 +33,5 @@ for env in dev staging prod; do
     heroku run python manage.py migrate --app $APP_NAME
 
     heroku dyno:type hobby --app $APP_NAME
-    # heroku apps:transfer lightmatter --app $APP_NAME
+    heroku apps:transfer wawo --app $APP_NAME
 done

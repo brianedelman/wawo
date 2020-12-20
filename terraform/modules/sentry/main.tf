@@ -1,6 +1,6 @@
 variable "organization"{
   type = string
-  default = "lightmatter"
+  default = "wawo"
 }
 variable "app_name" {
   type = string
@@ -39,38 +39,6 @@ data "sentry_key" "default" {
   name = "Default"
 }
 
-
-# Create a plugin
-resource "sentry_rule" "default" {
-  depends_on = [sentry_project.default]
-  organization = var.organization
-  project = var.app_name
-  name = "Send a notification for new events"
-  action_match = "any"
-  frequency    = 60
-
-  conditions =   [
-    {
-      id = "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"
-    },
-    {
-      id = "sentry.rules.conditions.regression_event.RegressionEventCondition",
-    },
-    {
-      id = "sentry.rules.conditions.reappeared_event.ReappearedEventCondition"
-    },
-  ]
-
-  actions =  [
-    {
-      name = "Send a notification to the Lightmatter Slack workspace to #${var.app_name}-internal and show tags [] in notification"
-      workspace = var.slack_workspace_id
-      tags = "environment"
-      id = "sentry.integrations.slack.notify_action.SlackNotifyServiceAction"
-      channel = "#${var.app_name}-internal"
-    }
-  ]
-}
 
 output "sentry_dsn" {
   value = data.sentry_key.default.dsn_public
