@@ -17,9 +17,7 @@ Env.read_env(repo_root(".env"))
 PROJECT_ROOT = root()
 DEBUG = env("DEBUG")
 
-ADMINS = (
-    ("Developer", "bd.edelman@gmail.com"),
-)
+ADMINS = (("Developer", "bd.edelman@gmail.com"),)
 
 MANAGERS = ADMINS
 
@@ -232,9 +230,7 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    "SERIALIZERS": {
-        "token_create": "wawo.account.serializers.TokenCreateSerializer",
-    },
+    "SERIALIZERS": {"token_create": "wawo.account.serializers.TokenCreateSerializer",},
     "USER_CREATE_PASSWORD_RETYPE": True,
     "CREATE_SESSION_ON_LOGIN": True,
     "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url
