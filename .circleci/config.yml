@@ -185,14 +185,14 @@ workflows:
   deploy:
     jobs:
       - test-django:
-          context: lightmatter
+          context: wawo
       - test-nextjs:
-          context: lightmatter
+          context: wawo
 
       - build:
           environment: production
           name: build-prod
-          context: lightmatter
+          context: wawo
           app-name: wawo-production
           filters:
             branches:
@@ -200,7 +200,7 @@ workflows:
 
       - deploy:
           name: deploy-prod
-          context: lightmatter
+          context: wawo
           app-name: wawo-production
           requires:
             - build-prod
@@ -212,7 +212,7 @@ workflows:
 
       - sentry:
           name: sentry-prod
-          context: lightmatter
+          context: wawo
           requires:
             - deploy-prod
           filters:
@@ -223,7 +223,7 @@ workflows:
       - build:
           environment: development
           name: build-dev
-          context: lightmatter
+          context: wawo
           app-name: wawo-development
           filters:
             branches:
@@ -231,7 +231,7 @@ workflows:
 
       - deploy:
           name: deploy-dev
-          context: lightmatter
+          context: wawo
           app-name: wawo-development
           requires:
             - build-dev
@@ -243,7 +243,7 @@ workflows:
 
       - sentry:
           name: sentry-dev
-          context: lightmatter
+          context: wawo
           requires:
             - deploy-dev
           filters:
@@ -254,6 +254,6 @@ workflows:
 
 
       # - ghostinspector:
-      #     context: lightmatter
+      #     context: wawo
       #     requires:
       #       - deploy-dev
