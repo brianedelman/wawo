@@ -13,9 +13,7 @@ urlpatterns = [
     path("social/", include("social_django.urls", namespace="social")),
     path("backend/", include("wawo.home.urls")),
 ]
-urlpatterns += [
-    path("", include("wawo.wagtailapp.urls")),
-]
+
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     import debug_toolbar
@@ -24,3 +22,9 @@ if settings.DEBUG:
     media_url = urlparse(settings.MEDIA_URL).path
     urlpatterns += static(media_url, document_root=settings.MEDIA_ROOT)
     urlpatterns += [path(r"__debug__/", include(debug_toolbar.urls))]
+
+
+# This needs to come after static and debug calls
+urlpatterns += [
+    path("", include("wawo.wagtailapp.urls")),
+]

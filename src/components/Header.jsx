@@ -127,7 +127,7 @@ export default function MenuAppBar() {
           <Grid item xs={6} md={9} align="right">
             {user && (
               <div>
-                <span data-cy="logged-in-name">Hey {user.first_name}</span>
+                <span data-cy="logged-in-name">Hey {user.firstName}</span>
                 <IconButton
                   aria-label="account of current user"
                   aria-controls="menu-appbar"

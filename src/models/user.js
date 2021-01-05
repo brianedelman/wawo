@@ -35,13 +35,13 @@ const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
 const email = Yup.string().email(EMAIL).required(REQUIRED);
 
 const UserDetailSchema = {
-  first_name: name,
-  last_name: name,
+  firstName: name,
+  lastName: name,
 };
 
 const SetPassSchema = {
   password,
-  re_password: password.equalTo('password', 'The Two Passwords Must Match'),
+  rePassword: password.equalTo('password', 'The Two Passwords Must Match'),
 };
 
 export const ProfileSchema = Yup.object().shape({
@@ -64,29 +64,29 @@ export const ForgotPassSchema = Yup.object().shape({
 });
 
 export const ResetPassSchema = Yup.object().shape({
-  new_password: password,
-  re_new_password: password.equalTo(
-    'new_password',
+  newPassword: password,
+  reNewPassword: password.equalTo(
+    'newPassword',
     'The Two Passwords Must Match'
   ),
 });
 
 export const ChangePassSchema = Yup.object().shape({
   current_password: password,
-  new_password: password,
-  re_new_password: password.equalTo(
-    'new_password',
+  newPassword: password,
+  reNewPassword: password.equalTo(
+    'newPassword',
     'The Two Passwords Must Match'
   ),
 });
 
 export const ChangeEmailSchema = Yup.object().shape({
-  new_email: email,
-  re_new_email: email.equalTo('new_email', 'The Two Emails must match'),
+  newEmail: email,
+  reNewEmail: email.equalTo('newEmail', 'The Two Emails must match'),
   current_password: password,
 });
 export const DeleteUserSchema = Yup.object().shape({
-  current_password: password,
+  currentPassword: password,
 });
 
 export function registerUser(userData) {

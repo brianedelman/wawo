@@ -1,8 +1,6 @@
 import { Paper, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import Link from '@material-ui/core/Link';
-
 const thisyear = new Date().getFullYear();
 const Footer = ({ className }) => {
   return (
