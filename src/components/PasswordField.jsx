@@ -8,44 +8,44 @@ import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
 const PasswordField = ({ dataCy, ...rest }) => {
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-    const handleClickShowPassword = () => {
-        setShowPassword(prevShowPassword => !prevShowPassword);
-    };
+  const handleClickShowPassword = () => {
+    setShowPassword(prevShowPassword => !prevShowPassword);
+  };
 
-    const handleMouseDownPassword = event => {
-        event.preventDefault();
-    };
-    return (
-        <Field
-            component={TextField}
-            type={showPassword ? 'text' : 'password'}
-            data-cy={dataCy}
-            {...rest}
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                        >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
-                ),
-            }}
-        />
-    );
+  const handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
+  return (
+    <Field
+      component={TextField}
+      type={showPassword ? 'text' : 'password'}
+      data-cy={dataCy}
+      {...rest}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+    />
+  );
 };
 
 PasswordField.propTypes = {
-    dataCy: PropTypes.string,
+  dataCy: PropTypes.string,
 };
 
 PasswordField.defaultProps = {
-    dataCy: 'password',
+  dataCy: 'password',
 };
 
 export default PasswordField;
