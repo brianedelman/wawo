@@ -1,199 +1,198 @@
+import clsx from 'clsx';
 import {
   usePopupState,
   bindTrigger,
   bindMenu,
 } from 'material-ui-popup-state/hooks';
-import { useRef } from 'react';
-
 import {
   AppBar,
-  Toolbar,
-  Typography,
+  Box,
+  Container,
   IconButton,
+  Toolbar,
   Menu,
-  MenuItem,
+  Hidden,
   Grid,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Router from 'next/router';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
+import Logo from 'components/svgs/Logo';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import DropDownMenu from 'components/menus/DropDownMenu';
+import AccountMenu from 'components/menus/Account';
 import Link from 'components/router/Link';
-import { useCurrentUser, logOut } from 'models/user';
+import { URLS } from 'constants.js';
 
 const useStyles = makeStyles(theme => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
+  appBar: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
-  title: {
-    flexGrow: 1,
+  menuButton: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    fontSize: '1rem',
+    textTransform: 'uppercase',
+    color: theme.palette.black,
+  },
+  mobileMenu: {
+    '& ul': {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingBottom: theme.spacing(3),
+      padding: `${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(
+        3
+      )}px ${theme.spacing(3)}px`,
+      alignItems: 'flex-end',
+      '& .MuiButton-root, & .MuiLink-root': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  },
+  small: {
+    height: '80px',
+  },
+  logo: {
+    display: 'block',
+    height: '100%',
+  },
+  height: {
+    height: '100%',
   },
 }));
 
-export default function MenuAppBar() {
+export default function Header() {
   const classes = useStyles();
-  const anchorRef = useRef(null);
+  const trigger = useScrollTrigger({ threshold: 15 });
+
   const navMenuState = usePopupState({
     variant: 'popover',
     popupId: 'navMenu',
   });
-  const profileMenuState = usePopupState({
-    variant: 'popover',
-    popupId: 'profileMenu',
-  });
-  const user = useCurrentUser();
 
-  const logoutButtonClick = () => {
-    logOut();
-    profileMenuState.close();
-  };
-
-  const handleMenuCloseWithLink = ({ event, link = '', callback = null }) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    if (link) {
-      Router.push(link);
-    }
-
-    if (callback) {
-      callback();
-    }
-
-    profileMenuState.close();
-    navMenuState.close();
-  };
-  return (
-    <AppBar position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
+  const menu = () => {
+    return (
+      <>
+        <DropDownMenu
+          menuName="Directory"
+          items={[
+            { text: 'All', link: '/' },
+            { text: 'Products', link: '/' },
+            { text: 'Services', link: '/' },
+            { text: 'Non-Profits', link: '/' },
+          ]}
           className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-          data-cy="auth-menu-button"
-          {...bindTrigger(navMenuState)}
+        />
+        <DropDownMenu
+          menuName="Sisterhood"
+          items={[
+            { text: 'Become a Member', link: URLS.sisterhood.become },
+            { text: 'Members', link: URLS.sisterhood.members },
+            { text: 'Host a Workshop', link: URLS.sisterhood.host },
+            { text: 'Member Login', link: URLS.sisterhood.login },
+          ]}
+          linkClassName={classes.menuButton}
+        />
+        <DropDownMenu
+          menuName="Blog"
+          items={[
+            { text: 'Founder Features', link: URLS.blog.founderFeatures },
+            { text: 'Retail', link: URLS.blog.retail },
+            { text: 'Marketing', link: URLS.blog.marketing },
+            { text: 'Self-Care + Wellness', link: URLS.blog.wellness },
+            { text: 'COVID-19 Resources', link: URLS.covid },
+          ]}
+          linkClassName={classes.menuButton}
+        />
+        <DropDownMenu
+          menuName="Events"
+          items={[
+            { text: 'Events Calendar', link: URLS.events.month },
+            { text: 'Past WAWO Events', link: URLS.events.gallery },
+          ]}
+          linkClassName={classes.menuButton}
+        />
+        <DropDownMenu
+          menuName="About"
+          items={[
+            { text: 'About Us', link: URLS.about },
+            { text: 'Contact', link: URLS.contact },
+          ]}
+          linkClassName={classes.menuButton}
+        />
+        <Link
+          className={classes.menuButton}
+          href="https://www.wearewomenowned.com/press/"
         >
-          <MenuIcon />
-        </IconButton>
-        <Grid container justify="space-between" alignItems="center">
-          <Grid item xs={6} md={3}>
-            <Menu keepMounted {...bindMenu(navMenuState)}>
-              <MenuItem
-                data-cy="login"
-                onClick={event =>
-                  handleMenuCloseWithLink({
-                    event,
-                    link: '/login',
-                  })
-                }
-              >
-                Login
-              </MenuItem>
-              <MenuItem
-                data-cy="signup"
-                onClick={event =>
-                  handleMenuCloseWithLink({
-                    event,
-                    link: '/signup',
-                  })
-                }
-              >
-                Sign Up
-              </MenuItem>
-              <MenuItem
-                onClick={event =>
-                  handleMenuCloseWithLink({
-                    event,
-                    link: '/error-page',
-                  })
-                }
-              >
-                Throw an error
-              </MenuItem>
-            </Menu>
-            <Link href="/">
-              <Typography
-                variant="h6"
-                color="textPrimary"
-                className={classes.title}
-              >
-                We Are Women Owned
-              </Typography>
-            </Link>
-          </Grid>
-          <Grid item xs={6} md={9} align="right">
-            {user && (
-              <div>
-                <span data-cy="logged-in-name">Hey {user.firstName}</span>
-                <IconButton
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  color="inherit"
-                  {...bindTrigger(profileMenuState)}
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
-                  <MenuItem
-                    onClick={event =>
-                      handleMenuCloseWithLink({
-                        event,
-                        link: '/account',
-                      })
-                    }
+          Press
+        </Link>
+        <AccountMenu linkClassName={classes.menuButton} />
+      </>
+    );
+  };
+
+  return (
+    <>
+      <AppBar
+        position="fixed"
+        color="inherit"
+        className={clsx(classes.appBar, trigger ? classes.small : '')}
+      >
+        <Toolbar disableGutters>
+          <Container maxWidth="lg" className={classes.height}>
+            <Grid
+              container
+              justify="space-between"
+              alignItems="center"
+              className={classes.height}
+            >
+              <Grid item xs={6} md={2} className={classes.height}>
+                <Link href="/" className={classes.logo}>
+                  <Logo className={classes.logo} />
+                </Link>
+              </Grid>
+              <Grid item xs={6} md={10} align="right">
+                <Hidden mdUp implementation="css">
+                  <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="menu"
+                    data-cy="auth-menu-button"
+                    {...bindTrigger(navMenuState)}
                   >
-                    Profile
-                  </MenuItem>
-                  <MenuItem
-                    onClick={event =>
-                      handleMenuCloseWithLink({
-                        event,
-                        link: '/account/change-password',
-                      })
-                    }
+                    <MenuIcon color="primary" />
+                  </IconButton>
+                  <Menu
+                    id="mobile-menu"
+                    getContentAnchorEl={null}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                    keepMounted
+                    {...bindMenu(navMenuState)}
+                    className={classes.mobileMenu}
                   >
-                    Change Password
-                  </MenuItem>
-                  <MenuItem
-                    onClick={event =>
-                      handleMenuCloseWithLink({
-                        event,
-                        link: '/account/change-email',
-                      })
-                    }
-                  >
-                    Change Email
-                  </MenuItem>
-                  <MenuItem
-                    onClick={event =>
-                      handleMenuCloseWithLink({
-                        event,
-                        link: '/account/delete-account',
-                      })
-                    }
-                  >
-                    Delete Account
-                  </MenuItem>
-                  <MenuItem
-                    onClick={event =>
-                      handleMenuCloseWithLink({
-                        event,
-                        callback: logoutButtonClick,
-                      })
-                    }
-                  >
-                    Logout
-                  </MenuItem>
-                </Menu>
-              </div>
-            )}
-          </Grid>
-        </Grid>
-      </Toolbar>
-    </AppBar>
+                    {menu()}
+                  </Menu>
+                </Hidden>
+                <Hidden smDown implementation="css">
+                  {menu()}
+                </Hidden>
+              </Grid>
+            </Grid>
+          </Container>
+        </Toolbar>
+      </AppBar>
+      {/* TODO: get the actual height of appbar */}
+      <Box height={122} />
+    </>
   );
 }

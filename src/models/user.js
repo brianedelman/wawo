@@ -182,7 +182,7 @@ export function useCurrentUserSWR({ initialUser }) {
         });
       }
     },
-    // revalidateOnFocus: isAuthenticated, //TODO: Currently a bug in useSWR - this doesn't change between renders
+    revalidateOnFocus: false,
     initialData: initialUser,
   };
 
