@@ -29,6 +29,7 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '3rem', // 48px
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '2.25rem', // 36px
       },
@@ -37,6 +38,7 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '2.5rem', // 40px
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '1.75rem', // 28px
       },
@@ -45,6 +47,7 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '2.25rem', // 36px
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '1.5rem', // 24px
       },
@@ -53,6 +56,7 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '1.250rem', // 20px
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '1.25rem', // 18px
       },
@@ -61,6 +65,7 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '1.250rem', // 20px
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '1.063rem', // 17px
       },
@@ -69,8 +74,16 @@ const theme = createMuiTheme({
       fontFamily: '"Mermaid", serif',
       fontWeight: 700,
       fontSize: '1rem',
+      marginBottom: '0.5rem',
       '@media (min-width:600px)': {
         fontSize: '1rem',
+      },
+    },
+  },
+  overrides: {
+    MuiInputBase: {
+      root: {
+        marginBottom: 16,
       },
     },
   },

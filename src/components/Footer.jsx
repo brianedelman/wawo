@@ -1,6 +1,7 @@
 import {
   Container,
   Grid,
+  Button,
   Box,
   List,
   ListItem,
@@ -9,6 +10,7 @@ import {
   Typography,
   IconButton,
 } from '@material-ui/core';
+import clsx from 'clsx';
 import Feed from 'react-instagram-authless-feed';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -24,12 +26,35 @@ import FooterLogo from 'components/svgs/FooterLogo';
 const thisyear = new Date().getFullYear();
 
 const useStyles = makeStyles(theme => ({
+  feed: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    width: '100%',
+    '& a': {
+      flex: 1,
+      '& img': {
+        width: '100%',
+      },
+    },
+  },
   footer: {
     backgroundColor: theme.palette.secondary.main,
     marginTop: 'auto',
     paddingTop: theme.spacing(4),
   },
+  footerGrid: {
+    textAlign: 'center',
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      textAlign: 'left',
+    },
+  },
   links: {
+    '& .MuiListItem-root': {
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'center',
+      },
+    },
     '& a': {
       fontSize: '1rem',
       color: theme.palette.text.primary,
@@ -39,21 +64,46 @@ const useStyles = makeStyles(theme => ({
 
 const Footer = () => {
   const classes = useStyles();
+
   return (
     <Paper className={classes.footer} elevation={0}>
       <Container maxWidth="lg" className={classes.height}>
         <Grid
           container
-          justify="space-between"
           alignItems="center"
+          justifyContent="space-between"
           className={classes.height}
         >
-          <Grid item xs={12} md={6} className={classes.height} />
+          <Grid
+            item
+            xs={12}
+            md={6}
+            className={clsx(classes.height, classes.footerGrid)}
+          >
+            <Typography color="primary" variant="h3">
+              Stay in the WAWO Know
+            </Typography>
+            <Button
+              variant="contained"
+              href="http://eepurl.com/dinzNX"
+              target="_blank"
+              rel="nofollow noopener"
+              color="primary"
+              size="large"
+            >
+              Sign Up for our Newsletter
+            </Button>
+          </Grid>
           <Hidden smDown implementation="css">
             <Grid item md={2} className={classes.height} />
           </Hidden>
 
-          <Grid item xs={12} md={4}>
+          <Grid
+            item
+            xs={12}
+            md={4}
+            className={clsx(classes.height, classes.footerGrid)}
+          >
             <FooterLogo />
             <List
               className={classes.links}
@@ -101,23 +151,23 @@ const Footer = () => {
             </List>
           </Grid>
         </Grid>
-        <ErrorBoundary>
-          <Feed
-            userName="wearewomenowned"
-            className="Feed"
-            classNameLoading="Loading"
-            limit="3"
-          />
-        </ErrorBoundary>
-
-        <Box my={2}>
-          <Typography variant="body1" color="textSecondary" align="center">
-            {'Copyright © '}
-            {thisyear}
-            {'.'}
-          </Typography>
-        </Box>
       </Container>
+      <ErrorBoundary>
+        <Feed
+          userName="wearewomenowned"
+          className={classes.feed}
+          classNameLoading="Loading"
+          limit={8}
+        />
+      </ErrorBoundary>
+
+      <Box mt={1} mb={2}>
+        <Typography variant="body1" color="textSecondary" align="center">
+          {'Copyright © '}
+          {thisyear}
+          {'.'}
+        </Typography>
+      </Box>
     </Paper>
   );
 };
