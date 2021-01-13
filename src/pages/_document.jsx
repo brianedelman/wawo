@@ -40,6 +40,7 @@ export default class MyDocument extends Document {
             media="print"
             onLoad="this.media='all'"
           />
+          <link href="/fonts/style.css" rel="stylesheet" />
 
           <link
             rel="stylesheet"

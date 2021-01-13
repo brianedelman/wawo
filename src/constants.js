@@ -27,6 +27,10 @@ const URLS = {
     login:
       'https://members.wearewomenowned.com/sign_in?from=https%3A%2F%2Fmembers.wearewomenowned.com%2F',
   },
+  press: 'https://www.wearewomenowned.com/press/',
+  conditions: 'https://www.wearewomenowned.com/terms-and-conditions/',
+  termsUse: 'https://www.wearewomenowned.com/terms-of-use/',
+  privacy: 'https://www.wearewomenowned.com/privacy-policy/',
 };
 
 export { TOO_SHORT, TOO_LONG, REQUIRED, EMAIL, GENERIC_FIELD_ERROR, URLS };
