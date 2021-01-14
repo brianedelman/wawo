@@ -5,6 +5,7 @@ django-filter==2.4.0
 django-cors-headers==3.6.0
 djangorestframework-jsonapi==4.0.0
 
+django-polymorphic==3.0.0
 
 #Admin
 Pillow==8.0.1
@@ -24,6 +25,7 @@ django-extensions==3.1.0
 django-model-utils==4.1.1
 pytz==2020.4
 easy-thumbnails==2.7.1
+django-autoslug==1.9.8
 
 #REDIS CACHING
 hiredis==1.1.0

@@ -264,7 +264,9 @@ INSTALLED_APPS += (
 
     'modelcluster',
     'taggit',
+    "autoslug",
 
+    'wawo.directory',
     'wawo.wagtailapp',
 )
 
