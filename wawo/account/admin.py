@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from import_export import resources
 from import_export.admin import ImportExportMixin
 
-from .models import User
+from .models import BusinessUser, User
 
 
 class UserResource(resources.ModelResource):
@@ -59,4 +59,22 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
     ordering = ("email",)
 
 
+class BusinessUserAdmin(UserAdmin):
+    fieldsets = UserAdmin.fieldsets + (
+        (
+            _("Business info"),
+            {
+                "fields": (
+                    "about",
+                    "founder_first_name",
+                    "founder_last_name",
+                    "founder_title",
+                    "display_founder_information",
+                )
+            },
+        ),
+    )
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(BusinessUser, BusinessUserAdmin)

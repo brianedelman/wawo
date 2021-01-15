@@ -11,6 +11,7 @@ import {
   IconButton,
   Toolbar,
   Menu,
+  MenuItem,
   Hidden,
   Grid,
 } from '@material-ui/core';
@@ -72,66 +73,62 @@ export default function Header() {
     popupId: 'navMenu',
   });
 
-  const menu = () => {
-    return (
-      <>
-        <DropDownMenu
-          menuName="Directory"
-          items={[
-            { text: 'All', link: '/' },
-            { text: 'Products', link: '/' },
-            { text: 'Services', link: '/' },
-            { text: 'Non-Profits', link: '/' },
-          ]}
-          className={classes.menuButton}
-        />
-        <DropDownMenu
-          menuName="Sisterhood"
-          items={[
-            { text: 'Become a Member', link: URLS.sisterhood.become },
-            { text: 'Members', link: URLS.sisterhood.members },
-            { text: 'Host a Workshop', link: URLS.sisterhood.host },
-            { text: 'Member Login', link: URLS.sisterhood.login },
-          ]}
-          linkClassName={classes.menuButton}
-        />
-        <DropDownMenu
-          menuName="Blog"
-          items={[
-            { text: 'Founder Features', link: URLS.blog.founderFeatures },
-            { text: 'Retail', link: URLS.blog.retail },
-            { text: 'Marketing', link: URLS.blog.marketing },
-            { text: 'Self-Care + Wellness', link: URLS.blog.wellness },
-            { text: 'COVID-19 Resources', link: URLS.covid },
-          ]}
-          linkClassName={classes.menuButton}
-        />
-        <DropDownMenu
-          menuName="Events"
-          items={[
-            { text: 'Events Calendar', link: URLS.events.month },
-            { text: 'Past WAWO Events', link: URLS.events.gallery },
-          ]}
-          linkClassName={classes.menuButton}
-        />
-        <DropDownMenu
-          menuName="About"
-          items={[
-            { text: 'About Us', link: URLS.about },
-            { text: 'Contact', link: URLS.contact },
-          ]}
-          linkClassName={classes.menuButton}
-        />
-        <Link
-          className={classes.menuButton}
-          href="https://www.wearewomenowned.com/press/"
-        >
-          Press
-        </Link>
-        <AccountMenu linkClassName={classes.menuButton} />
-      </>
-    );
-  };
+  const menu = [
+    <DropDownMenu
+      menuName="Directory"
+      items={[
+        { text: 'All', link: '/' },
+        { text: 'Products', link: '/' },
+        { text: 'Services', link: '/' },
+        { text: 'Non-Profits', link: '/' },
+      ]}
+      className={classes.menuButton}
+    />,
+    <DropDownMenu
+      menuName="Sisterhood"
+      items={[
+        { text: 'Become a Member', link: URLS.sisterhood.become },
+        { text: 'Members', link: URLS.sisterhood.members },
+        { text: 'Host a Workshop', link: URLS.sisterhood.host },
+        { text: 'Member Login', link: URLS.sisterhood.login },
+      ]}
+      linkClassName={classes.menuButton}
+    />,
+    <DropDownMenu
+      menuName="Blog"
+      items={[
+        { text: 'Founder Features', link: URLS.blog.founderFeatures },
+        { text: 'Retail', link: URLS.blog.retail },
+        { text: 'Marketing', link: URLS.blog.marketing },
+        { text: 'Self-Care + Wellness', link: URLS.blog.wellness },
+        { text: 'COVID-19 Resources', link: URLS.covid },
+      ]}
+      linkClassName={classes.menuButton}
+    />,
+    <DropDownMenu
+      menuName="Events"
+      items={[
+        { text: 'Events Calendar', link: URLS.events.month },
+        { text: 'Past WAWO Events', link: URLS.events.gallery },
+      ]}
+      linkClassName={classes.menuButton}
+    />,
+    <DropDownMenu
+      menuName="About"
+      items={[
+        { text: 'About Us', link: URLS.about },
+        { text: 'Contact', link: URLS.contact },
+      ]}
+      linkClassName={classes.menuButton}
+    />,
+    <Link
+      className={classes.menuButton}
+      href="https://www.wearewomenowned.com/press/"
+    >
+      Press
+    </Link>,
+    <AccountMenu linkClassName={classes.menuButton} />,
+  ];
 
   return (
     <>
@@ -180,11 +177,17 @@ export default function Header() {
                     {...bindMenu(navMenuState)}
                     className={classes.mobileMenu}
                   >
-                    {menu()}
+                    {menu.map((item, index) => (
+                      <MenuItem key={index}>{item}</MenuItem>
+                    ))}
                   </Menu>
                 </Hidden>
                 <Hidden smDown implementation="css">
-                  {menu()}
+                  <Box display="flex" justifyContent="flex-end">
+                    {menu.map((item, index) => (
+                      <MenuItem key={index}>{item}</MenuItem>
+                    ))}
+                  </Box>
                 </Hidden>
               </Grid>
             </Grid>

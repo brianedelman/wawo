@@ -8,9 +8,12 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
+from polymorphic.models import PolymorphicManager, PolymorphicModel
+
+from wawo.util.util import file_url
 
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager, PolymorphicManager):
     use_in_migrations = True
 
     @classmethod
@@ -21,7 +24,7 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         email = self.normalize_email(email)
-        user = self.model(
+        user = self.model(  # noqa
             email=email,
             is_staff=is_staff,
             is_active=True,
@@ -44,7 +47,7 @@ class UserManager(BaseUserManager):
         return self.get(email__iexact=username)
 
 
-class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
+class User(PolymorphicModel, TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         _("email address"),
         unique=True,
@@ -65,6 +68,17 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
             "active. Unselect this instead of deleting accounts."
         ),
     )
+
+    birthday = models.DateField(null=True, blank=True)
+    # TODO email verified flow
+    email_verified = models.BooleanField(default=False)
+    # TODO terms agreed flow or just force them to agree
+    terms_agreed = models.BooleanField(default=False)
+    profile_image = models.ImageField(
+        upload_to=file_url("profiles"), blank=True, null=True
+    )
+
+    favorites = models.ManyToManyField("directory.Business", blank=True)
 
     objects = UserManager()
 
@@ -97,3 +111,12 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
         The absolute url of the user model
         """
         raise NotImplementedError()
+
+
+class BusinessUser(User):
+    about = models.CharField(max_length=255, blank=True, null=True)
+    founder_first_name = models.CharField(max_length=30, blank=True, null=True)
+    founder_last_name = models.CharField(max_length=30, blank=True, null=True)
+    founder_title = models.CharField(max_length=30, blank=True, null=True)
+
+    display_founder_information = models.BooleanField(default=True)
