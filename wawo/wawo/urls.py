@@ -12,6 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("social/", include("social_django.urls", namespace="social")),
     path("backend/", include("wawo.home.urls")),
+    path(r"backend/directory/", include("wawo.directory.urls")),
 ]
 
 if settings.DEBUG:

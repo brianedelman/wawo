@@ -31,7 +31,7 @@ class UserChangeForm(DjangoUserChangeForm):
 class UserAdmin(ImportExportMixin, DjangoUserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "profile_image")}),
         (
             _("Permissions"),
             {
