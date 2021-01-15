@@ -8,12 +8,12 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
-from polymorphic.models import PolymorphicModel
+from polymorphic.models import PolymorphicManager, PolymorphicModel
 
 from wawo.util.util import file_url
 
 
-class UserManager(BaseUserManager):
+class UserManager(BaseUserManager, PolymorphicManager):
     use_in_migrations = True
 
     @classmethod
@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         email = self.normalize_email(email)
-        user = self.model(
+        user = self.model(  # noqa
             email=email,
             is_staff=is_staff,
             is_active=True,
@@ -69,7 +69,7 @@ class User(PolymorphicModel, TimeStampedModel, AbstractBaseUser, PermissionsMixi
         ),
     )
 
-    birthday = models.DateField(null=True)
+    birthday = models.DateField(null=True, blank=True)
     # TODO email verified flow
     email_verified = models.BooleanField(default=False)
     # TODO terms agreed flow or just force them to agree

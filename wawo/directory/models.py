@@ -33,7 +33,7 @@ class LocationQueryset(models.QuerySet):
 
 
 class LocationBase(models.Model):
-    # TODO can i make certain fields nullable is location_type is a certain thing?
+    # TODO can i make certain fields nullable if location_type is a certain thing?
     location_type = models.CharField(
         max_length=4, choices=LocationType.choices, default=LocationType.ONLINE,
     )
