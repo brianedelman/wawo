@@ -1,18 +1,8 @@
-from decimal import Decimal
-
-from django.utils import timezone
 from model_bakery.recipe import Recipe, foreign_key, related
 
 from wawo.account.baker_recipes import founder
 
-from .models import (
-    Business,
-    BusinessCategory,
-    BusinessEvent,
-    BusinessImage,
-    BusinessPromotion,
-    BusinessTestimonial,
-)
+from .models import Business, BusinessCategory
 
 category = Recipe(BusinessCategory, name="Black-Owned", slug="black-owned")
 

@@ -7,9 +7,6 @@ from model_bakery import baker
 from wawo.directory.models import Business
 
 
-# from wawo.util.constants import AUTH_FAILURE
-
-
 class BusinessViewSetTest(TestCase):
     def setUp(self):
         self.business = baker.make_recipe("wawo.directory.business")
