@@ -5,6 +5,8 @@ const REQUIRED = 'This Field is Required!';
 const EMAIL = 'Invalid Email';
 const GENERIC_FIELD_ERROR = "Something's not right";
 
+const API_BASE = '/backend/';
+const DIRECTORY_BASE = `${API_BASE}directory/`;
 // TODO: this is a temporary mapping to external/internal urls as we build things out
 const URLS = {
   about: 'https://www.wearewomenowned.com/about/',
@@ -31,6 +33,9 @@ const URLS = {
   conditions: 'https://www.wearewomenowned.com/terms-and-conditions/',
   termsUse: 'https://www.wearewomenowned.com/terms-of-use/',
   privacy: 'https://www.wearewomenowned.com/privacy-policy/',
+  api: {
+    directory: `${DIRECTORY_BASE}businesses/`,
+  },
 };
 
 export { TOO_SHORT, TOO_LONG, REQUIRED, EMAIL, GENERIC_FIELD_ERROR, URLS };

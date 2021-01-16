@@ -83,6 +83,7 @@ class Business(LocationBase, TimeStampedModel):
 
     class Meta:
         verbose_name_plural = "Businesses"
+        ordering = ["created"]
 
     def __str__(self):
         return self.name
