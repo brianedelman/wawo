@@ -17,6 +17,7 @@ class BusinessCategorySerializer(serializers.ModelSerializer):
         model = BusinessCategory
         fields = [
             "name",
+            "description",
             "slug",
             "image",
         ]

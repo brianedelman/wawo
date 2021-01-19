@@ -70,7 +70,7 @@ function Link({
 
   let target;
   if (!isServer()) {
-    target = isExternalLink(href) ? '_blank' : undefined;
+    target = isExternalLink(href) ? '_blank' : null;
   }
   let LinkComponent = MuiLink;
   if (componentType === 'button') {

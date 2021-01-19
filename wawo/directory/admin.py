@@ -65,7 +65,7 @@ class BusinessAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 class BusinessCategoryAdmin(ImportExportMixin, admin.ModelAdmin):
-    fields = ("name", "image", "slug")
+    fields = ("name", "description", "image", "slug")
     readonly_fields = ("slug",)
     search_fields = (
         "name",

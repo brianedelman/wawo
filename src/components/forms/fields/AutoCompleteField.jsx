@@ -84,7 +84,7 @@ const AutoCompleteField = ({
             error={isError}
             helperText={errors.name}
             label={label}
-            variant="outlined"
+            variant="filled"
             InputProps={{
               ...params.InputProps,
               endAdornment: (
@@ -110,7 +110,7 @@ AutoCompleteField.propTypes = {
   formControlClassName: PropTypes.string,
   name: PropTypes.string.isRequired,
   optionLabel: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   callback: PropTypes.func.isRequired,
   errors: PropTypes.object,
 };
@@ -119,6 +119,7 @@ AutoCompleteField.defaultProps = {
   fullWidth: true,
   formControlClassName: '',
   errors: {},
+  value: null,
 };
 
 export default AutoCompleteField;
