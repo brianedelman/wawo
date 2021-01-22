@@ -13,6 +13,7 @@ from .constants import BusinessType, LocationType, PricePoint
 
 class BusinessCategory(models.Model):
     name = models.CharField(max_length=200)
+    description = models.TextField(null=True)
     slug = AutoSlugField(unique=True, populate_from="name",)
     image = models.ImageField(upload_to=file_url("categories"))
 
@@ -83,6 +84,7 @@ class Business(LocationBase, TimeStampedModel):
 
     class Meta:
         verbose_name_plural = "Businesses"
+        ordering = ["created"]
 
     def __str__(self):
         return self.name

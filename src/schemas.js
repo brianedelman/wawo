@@ -6,5 +6,11 @@ const NewsletterSchema = Yup.object().shape({
   newsletterType: Yup.string(),
 });
 
-// eslint-disable-next-line import/prefer-default-export
-export { NewsletterSchema };
+const DirectorySchema = Yup.object().shape({
+  category: Yup.string().nullable(),
+  pricePoint: Yup.string().nullable(),
+  search: Yup.string().nullable(),
+  location: Yup.string().nullable(),
+});
+
+export { NewsletterSchema, DirectorySchema };

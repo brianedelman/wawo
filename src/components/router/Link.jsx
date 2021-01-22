@@ -55,22 +55,26 @@ function Link({
   }
 
   const isExternalLink = linkHref => {
+    let newLinkHref = linkHref;
     const checkHref = `${window.location.protocol}//${window.location.host}`;
+    if (newLinkHref?.pathname) {
+      newLinkHref = newLinkHref.pathName;
+    }
     return !(
-      !linkHref ||
-      linkHref[0] === '?' ||
-      linkHref[0] === '/' ||
-      linkHref[0] === '#' ||
-      linkHref.startsWith(checkHref) ||
-      linkHref.startsWith(window.location.host) ||
-      linkHref.substring(0, 4) === 'tel:' ||
-      linkHref.substring(0, 7) === 'mailto:'
+      !newLinkHref ||
+      newLinkHref[0] === '?' ||
+      newLinkHref[0] === '/' ||
+      newLinkHref[0] === '#' ||
+      newLinkHref.startsWith(checkHref) ||
+      newLinkHref.startsWith(window.location.host) ||
+      newLinkHref.substring(0, 4) === 'tel:' ||
+      newLinkHref.substring(0, 7) === 'mailto:'
     );
   };
 
   let target;
   if (!isServer()) {
-    target = isExternalLink(href) ? '_blank' : undefined;
+    target = isExternalLink(href) ? '_blank' : null;
   }
   let LinkComponent = MuiLink;
   if (componentType === 'button') {

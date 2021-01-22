@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   footer: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.pink,
     marginTop: 'auto',
     paddingTop: theme.spacing(4),
   },
@@ -66,14 +66,9 @@ const Footer = () => {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.footer} elevation={0}>
+    <Paper className={classes.footer} elevation={0} square>
       <Container maxWidth="lg" className={classes.height}>
-        <Grid
-          container
-          alignItems="center"
-          justifyContent="space-between"
-          className={classes.height}
-        >
+        <Grid container alignItems="center" className={classes.height}>
           <Grid
             item
             xs={12}

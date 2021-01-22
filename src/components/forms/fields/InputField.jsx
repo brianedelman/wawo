@@ -21,7 +21,7 @@ const InputField = ({
       error={isError}
       className={formControlClassName}
     >
-      <TextField {...field} {...props} variant="outlined" />
+      <TextField variant="filled" {...field} {...props} />
       {(isError || helperText) && (
         <FormHelperText>
           {isError
