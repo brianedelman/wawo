@@ -1,3 +1,4 @@
+import { PROPTYPES } from 'constants.js';
 import PropTypes from 'prop-types';
 import BusinessCard from 'components/directory/BusinessCard';
 import { Grid } from '@material-ui/core';
@@ -26,8 +27,7 @@ function BusinessGrid({ businesses, clearFilters }) {
 }
 
 BusinessGrid.propTypes = {
-  // TODO better proptypes
-  businesses: PropTypes.array.isRequired,
+  businesses: PropTypes.arrayOf(PROPTYPES.business).isRequired,
   clearFilters: PropTypes.func.isRequired,
 };
 

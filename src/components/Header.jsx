@@ -78,9 +78,9 @@ export default function Header() {
       menuName="Directory"
       items={[
         { text: 'All', link: '/directory/businesses' },
-        { text: 'Products', link: '/' },
-        { text: 'Services', link: '/' },
-        { text: 'Non-Profits', link: '/' },
+        { text: 'Products', link: '/directory/businesses?type=product' },
+        { text: 'Services', link: '/directory/businesses?type=service' },
+        { text: 'Non-Profits', link: '/directory/businesses?type=non_profit' },
       ]}
       className={classes.menuButton}
     />,

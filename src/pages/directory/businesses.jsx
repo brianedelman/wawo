@@ -123,10 +123,7 @@ function Businesses({ businesses, totalPages }) {
         <Hidden smDown implementation="css">
           <Box display="flex" justifyContent="space-around" mb={8} mt={4}>
             <Link
-              href={{
-                pathname: '/directory/businesses',
-                query: { type: 'product' },
-              }}
+              href="/directory/businesses/?type=product"
               onClick={handleClearFilters}
               componentType="button"
               variant="contained"
@@ -137,10 +134,7 @@ function Businesses({ businesses, totalPages }) {
               Products
             </Link>
             <Link
-              href={{
-                pathname: '/directory/businesses',
-                query: { type: 'service' },
-              }}
+              href="/directory/businesses/?type=service"
               onClick={handleClearFilters}
               componentType="button"
               variant="contained"
@@ -151,10 +145,7 @@ function Businesses({ businesses, totalPages }) {
               Services
             </Link>
             <Link
-              href={{
-                pathname: '/directory/businesses',
-                query: { type: 'non_profit' },
-              }}
+              href="/directory/businesses/?type=non_profit"
               onClick={handleClearFilters}
               componentType="button"
               variant="contained"

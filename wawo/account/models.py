@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 from polymorphic.models import PolymorphicManager, PolymorphicModel
@@ -111,6 +112,14 @@ class User(PolymorphicModel, TimeStampedModel, AbstractBaseUser, PermissionsMixi
         The absolute url of the user model
         """
         raise NotImplementedError()
+
+    @cached_property
+    def display_first_name(self):
+        return self.founder_first_name if self.founder_first_name else self.first_name
+
+    @cached_property
+    def display_last_name(self):
+        return self.founder_last_name if self.founder_last_name else self.last_name
 
 
 class BusinessUser(User):

@@ -93,7 +93,6 @@ const useStyles = makeStyles(theme => ({
 function Filters({ values, filteredCategory, ...rest }) {
   const classes = useStyles();
 
-  // TODO real initial valuews based on search, need to link to url
   return (
     <Box my={4}>
       <Paper elevation={0} className={classes.filterWrapper} square>

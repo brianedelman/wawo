@@ -58,9 +58,7 @@ function BusinessCard({ business }) {
 
   const { founder, categories } = business;
 
-  const founderName = founder.founderFirstName
-    ? `${founder.founderFirstName} ${founder.founderLastName}`
-    : `${founder.firstName} ${founder.lastName}`;
+  const founderName = `${founder.displayFirstName} ${founder.displayLastName}`;
   return (
     <Card className={classes.businessCard}>
       <Box

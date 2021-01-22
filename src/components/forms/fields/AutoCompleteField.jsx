@@ -110,7 +110,7 @@ AutoCompleteField.propTypes = {
   formControlClassName: PropTypes.string,
   name: PropTypes.string.isRequired,
   optionLabel: PropTypes.func.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   callback: PropTypes.func.isRequired,
   errors: PropTypes.object,
 };
