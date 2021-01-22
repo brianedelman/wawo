@@ -2,17 +2,23 @@ import PropTypes from 'prop-types';
 import { PROPTYPES } from 'constants.js';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Link from 'components/router/Link';
 
 const useStyles = makeStyles(theme => ({
   category: {
     fontSize: theme.typography.pxToRem(12),
+  },
+  categoryLink: {
+    color: theme.palette.text.secondary,
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
   },
 }));
 
 function CategoryShortList({ categories, businessType }) {
   const classes = useStyles();
 
-  // TODO make linkable
   return (
     <>
       {categories.length > 0 && (
@@ -23,7 +29,15 @@ function CategoryShortList({ categories, businessType }) {
               className={classes.category}
               color="textSecondary"
             >
-              {businessType}
+              <Link
+                className={classes.categoryLink}
+                href={{
+                  pathname: '/directory/businesses',
+                  query: { type: businessType },
+                }}
+              >
+                {businessType}
+              </Link>
               {categories.length > 0 && ' | '}
             </Typography>
           )}
@@ -34,7 +48,15 @@ function CategoryShortList({ categories, businessType }) {
               color="textSecondary"
               key={cat.slug}
             >
-              {cat.name}
+              <Link
+                className={classes.categoryLink}
+                href={{
+                  pathname: '/directory/businesses',
+                  query: { category: cat.name },
+                }}
+              >
+                {cat.name}
+              </Link>
               {idx < categories.length - 1 && ' | '}
             </Typography>
           ))}

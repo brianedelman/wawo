@@ -96,7 +96,7 @@ function Businesses({ businesses, totalPages }) {
         setFilteredCategory(cat);
       }
     })();
-  }, []);
+  }, [router.query]);
 
   return (
     <>
