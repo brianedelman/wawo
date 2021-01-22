@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
 
 function Businesses({ businesses, totalPages }) {
   const classes = useStyles();
-  // TODO get args from query and then provide that as initial value to filters
   const router = useRouter();
   const $formik = useRef();
 
@@ -40,13 +39,13 @@ function Businesses({ businesses, totalPages }) {
 
   const handleFormSubmit = async values => {
     setFilteringInProgress(true);
-    console.log(values);
 
     const params = {
       ...(values.category ? { category: values.category.name } : null),
       ...(values.pricePoint ? { pricePoint: values.pricePoint.value } : null),
       ...(values.search ? { search: values.search } : null),
       ...(values.location ? { location: values.location } : null),
+      ...(router.query.type ? { type: router.query.type } : null),
     };
     const res = await axios.get(`${URLS.api.directory}`, { params });
 
@@ -61,13 +60,11 @@ function Businesses({ businesses, totalPages }) {
     setFilteredBusinesses(res.data?.results);
     setFilteredTotalPages(res.data?.totalPages);
     setFilteringInProgress(false);
-    // TODO: i think there might be an easier way. AutoComplete field has access to this data but is stripping it when we set the value. could make this less fragile here
-    // NOTE: this is a little weird but I want to set the category extra data
-    setFilteredCategory(
-      res.data?.results[0].categories.find(
-        category => category.name === values.category.name
-      )
-    );
+    if (values.category) {
+      setFilteredCategory(values.category);
+    } else {
+      setFilteredCategory(null);
+    }
   };
 
   const handleClearFilters = () => {
@@ -76,12 +73,20 @@ function Businesses({ businesses, totalPages }) {
         values: { search: '', location: '', category: null, pricePoint: null },
       });
     }
-    setFilteredBusinesses(businesses);
-    setFilteredTotalPages(totalPages);
-    setFilteredCategory(null);
+    if (filteredCategory) {
+      setFilteredBusinesses(businesses);
+      setFilteredTotalPages(totalPages);
+      setFilteredCategory(null);
+    }
   };
 
   useEffect(() => {
+    setFilteredBusinesses(businesses);
+    setFilteredTotalPages(totalPages);
+  }, [businesses]);
+
+  useEffect(() => {
+    // TODO is there a way i can get this from the url
     (async () => {
       if (router.query?.category) {
         const res = await axios.get(`${URLS.api.categories}`);
@@ -118,7 +123,11 @@ function Businesses({ businesses, totalPages }) {
         <Hidden smDown implementation="css">
           <Box display="flex" justifyContent="space-around" mb={8} mt={4}>
             <Link
-              href="/?TODO"
+              href={{
+                pathname: '/directory/businesses',
+                query: { type: 'product' },
+              }}
+              onClick={handleClearFilters}
               componentType="button"
               variant="contained"
               color="primary"
@@ -128,7 +137,11 @@ function Businesses({ businesses, totalPages }) {
               Products
             </Link>
             <Link
-              href="/?TODO"
+              href={{
+                pathname: '/directory/businesses',
+                query: { type: 'service' },
+              }}
+              onClick={handleClearFilters}
               componentType="button"
               variant="contained"
               color="primary"
@@ -138,7 +151,11 @@ function Businesses({ businesses, totalPages }) {
               Services
             </Link>
             <Link
-              href="/?TODO"
+              href={{
+                pathname: '/directory/businesses',
+                query: { type: 'non_profit' },
+              }}
+              onClick={handleClearFilters}
               componentType="button"
               variant="contained"
               color="primary"
@@ -148,7 +165,8 @@ function Businesses({ businesses, totalPages }) {
               Non-Profits
             </Link>
             <Link
-              href="/?TODO"
+              href="/directory/businesses"
+              onClick={handleClearFilters}
               componentType="button"
               variant="contained"
               color="primary"

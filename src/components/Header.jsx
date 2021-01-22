@@ -77,7 +77,7 @@ export default function Header() {
     <DropDownMenu
       menuName="Directory"
       items={[
-        { text: 'All', link: '/' },
+        { text: 'All', link: '/directory/businesses' },
         { text: 'Products', link: '/' },
         { text: 'Services', link: '/' },
         { text: 'Non-Profits', link: '/' },

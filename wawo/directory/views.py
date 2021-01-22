@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from django_filters import rest_framework as filters
 
+from .constants import BusinessType
 from .models import Business, BusinessCategory
 from .permission import IsBusinessUser
 from .serializers import BusinessCategorySerializer, BusinessSerializer
@@ -34,6 +35,7 @@ class BusinessFilter(filters.FilterSet):
     category = filters.CharFilter(method="filter_category", label="Category")
     search = filters.CharFilter(method="filter_search", label="Search")
     location = filters.CharFilter(method="filter_location", label="City or zip code")
+    type = filters.CharFilter(method="filter_type", label="Business Type")
 
     class Meta:
         model = Business
@@ -43,6 +45,7 @@ class BusinessFilter(filters.FilterSet):
             "price_point",
             "search",
             "location",
+            "type",
         ]
 
     def filter_category(self, queryset, name, value):  # pylint: disable=unused-argument
@@ -63,6 +66,10 @@ class BusinessFilter(filters.FilterSet):
             | Q(postal_code__istartswith=value)
             | Q(state__istartswith=value)
         )
+
+    def filter_type(self, queryset, name, value):  # pylint: disable=unused-argument
+        business_type = BusinessType[value.upper()].value
+        return queryset.filter(business_type=business_type)
 
 
 class BusinessViewSet(viewsets.ModelViewSet):
