@@ -15,7 +15,7 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Allow all host headers
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "1043fa1b7525.ngrok.io"]
 
 STATIC_ROOT = root("static")
 STATIC_URL = "/static/"
