@@ -10,6 +10,7 @@ category1 = Recipe(BusinessCategory, name="Green-Owned", slug="green-owned")
 
 business = Recipe(
     Business,
+    slug="biz-slug",
     founder=foreign_key(founder),
     name="Super Cool Biz",
     categories=related(category),
@@ -22,6 +23,7 @@ business = Recipe(
 
 business1 = Recipe(
     Business,
+    slug="biz-slug1",
     founder=foreign_key(founder1),
     name="Amazing Biz",
     categories=related(category1),

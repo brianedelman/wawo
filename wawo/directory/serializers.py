@@ -81,13 +81,17 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Business
+        lookup_field = "slug"
+
         fields = [
             "id",
             "name",
+            "slug",
             "founder",
             "description",
             "short_description",
             "facebook",
+            "instagram",
             "youtube",
             "twitter",
             "business_url",
@@ -95,6 +99,7 @@ class BusinessSerializer(serializers.ModelSerializer):
             "business_type",
             "price_point",
             "main_image",
+            "hero_image",
             "images",
             "events",
             "testimonials",
@@ -130,3 +135,12 @@ class BusinessSerializer(serializers.ModelSerializer):
     #     instance.client = get_object_or_404(Client, id=client.get("id"))
     #     instance.save()
     #     return super().update(instance, validated_data)
+
+
+class BusinessSlugSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Business
+
+        fields = [
+            "slug",
+        ]

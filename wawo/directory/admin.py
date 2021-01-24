@@ -35,6 +35,7 @@ class BusinessAdmin(ImportExportMixin, admin.ModelAdmin):
         "description",
         "short_description",
         "main_image",
+        "hero_image",
         "business_url",
         "categories",
         "business_type",
@@ -83,9 +84,10 @@ class BusinessImageAdmin(admin.ModelAdmin):
     fields = (
         "business",
         "image",
+        "alt",
     )
     autocomplete_fields = ("business",)
-    list_display = ("id", "business", "image")
+    list_display = ("id", "business", "image", "alt")
 
 
 class BusinessPromotionAdmin(admin.ModelAdmin):

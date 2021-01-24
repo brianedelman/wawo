@@ -11,14 +11,14 @@ import {
   IconButton,
 } from '@material-ui/core';
 import clsx from 'clsx';
-import Feed from 'react-instagram-authless-feed';
+// import Feed from 'react-instagram-authless-feed';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ErrorBoundary from 'components/ErrorBoundary';
+// import ErrorBoundary from 'components/ErrorBoundary';
 import Link from 'components/router/Link';
 import { URLS } from 'constants.js';
 import FooterLogo from 'components/svgs/FooterLogo';
@@ -147,14 +147,14 @@ const Footer = () => {
           </Grid>
         </Grid>
       </Container>
-      <ErrorBoundary>
-        <Feed
-          userName="wearewomenowned"
-          className={classes.feed}
-          classNameLoading="Loading"
-          limit={8}
-        />
-      </ErrorBoundary>
+      {/* <ErrorBoundary> */}
+      {/* <Feed */}
+      {/*   userName="wearewomenowned" */}
+      {/*   className={classes.feed} */}
+      {/*   classNameLoading="Loading" */}
+      {/*   limit={8} */}
+      {/* /> */}
+      {/* </ErrorBoundary> */}
 
       <Box mt={1} mb={2}>
         <Typography variant="body1" color="textSecondary" align="center">

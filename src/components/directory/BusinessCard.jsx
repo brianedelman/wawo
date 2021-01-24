@@ -51,6 +51,9 @@ const useStyles = makeStyles(theme => ({
   topSection: {
     height: '100%',
   },
+  categories: {
+    fontSize: theme.typography.pxToRem(12),
+  },
 }));
 
 function BusinessCard({ business }) {
@@ -131,10 +134,11 @@ function BusinessCard({ business }) {
           <CategoryShortList
             businessType={business.businessType}
             categories={categories}
+            className={classes.categories}
           />
           <Box display="flex" justifyContent="space-between">
             <Link
-              href="/?todo"
+              href={`/directory/${business.slug}/`}
               componentType="button"
               className={classes.button}
               variant="outlined"

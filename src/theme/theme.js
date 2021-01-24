@@ -97,7 +97,7 @@ const theme = createMuiTheme({
       },
     },
     body2: {
-      fontSize: '1.25rem', // 18px
+      fontSize: '1.125rem', // 18px
       fontWeight: 500,
     },
     overline: {

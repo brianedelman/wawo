@@ -6,9 +6,10 @@ import Link from 'components/router/Link';
 
 const useStyles = makeStyles(theme => ({
   category: {
-    fontSize: theme.typography.pxToRem(12),
+    fontSize: 'inherit',
   },
   categoryLink: {
+    fontSize: 'inherit',
     color: theme.palette.text.secondary,
     '&:hover': {
       color: theme.palette.primary.main,
@@ -16,11 +17,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function CategoryShortList({ categories, businessType }) {
+function CategoryShortList({ categories, businessType, className }) {
   const classes = useStyles();
 
   return (
-    <>
+    <Box className={className}>
       {categories.length > 0 && (
         <Box flex={1} mb={1}>
           {businessType && (
@@ -62,17 +63,19 @@ function CategoryShortList({ categories, businessType }) {
           ))}
         </Box>
       )}
-    </>
+    </Box>
   );
 }
 
 CategoryShortList.propTypes = {
   categories: PropTypes.arrayOf(PROPTYPES.category).isRequired,
   businessType: PropTypes.string,
+  className: PropTypes.string,
 };
 
 CategoryShortList.defaultProps = {
   businessType: null,
+  className: null,
 };
 
 export default CategoryShortList;

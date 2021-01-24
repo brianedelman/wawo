@@ -8,7 +8,11 @@ from django_filters import rest_framework as filters
 from .constants import BusinessType
 from .models import Business, BusinessCategory
 from .permission import IsBusinessUser
-from .serializers import BusinessCategorySerializer, BusinessSerializer
+from .serializers import (
+    BusinessCategorySerializer,
+    BusinessSerializer,
+    BusinessSlugSerializer,
+)
 
 
 class BusinessPagination(PageNumberPagination):
@@ -29,6 +33,11 @@ class BusinessPagination(PageNumberPagination):
                 "results": data,
             }
         )
+
+
+class BusinessSlugPagination(PageNumberPagination):
+    page_size = 255
+    max_page_size = 255
 
 
 class BusinessFilter(filters.FilterSet):
@@ -77,10 +86,19 @@ class BusinessViewSet(viewsets.ModelViewSet):
     queryset = Business.objects.prefetch_related(
         "categories", "events", "promotions", "testimonials", "images"
     )
+    lookup_field = "slug"
     serializer_class = BusinessSerializer
     permission_classes = [IsBusinessUser]
     pagination_class = BusinessPagination
     filterset_class = BusinessFilter
+
+
+class BusinessSlugViewSet(viewsets.ModelViewSet):
+
+    queryset = Business.objects.all()
+    serializer_class = BusinessSlugSerializer
+    permission_classes = [IsBusinessUser]
+    pagination_class = BusinessSlugPagination
 
 
 class BusinessCategoryViewSet(viewsets.ModelViewSet):

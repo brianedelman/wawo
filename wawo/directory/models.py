@@ -49,10 +49,9 @@ class LocationBase(models.Model):
 
     @cached_property
     def location(self):
-        if self.address1:
-            return "{}, {}, {} {}".format(
-                self.address1, self.city, self.state, self.postal_code
-            )
+        # TODO: this will fail if they are brick and mortar but have no city state, need to require?
+        if self.location_type == LocationType.PHYSICAL.value:
+            return f"{self.city}, {self.state}"
         return None
 
     class Meta:
@@ -61,6 +60,7 @@ class LocationBase(models.Model):
 
 class Business(LocationBase, TimeStampedModel):
     name = models.CharField(max_length=100)
+    slug = AutoSlugField(unique=True, populate_from="name",)
     founder = models.ForeignKey(
         BusinessUser, on_delete=models.CASCADE, related_name="businesses"
     )
@@ -81,6 +81,7 @@ class Business(LocationBase, TimeStampedModel):
     price_point = models.IntegerField(choices=PricePoint.choices, null=True, blank=True)
 
     main_image = models.ImageField(upload_to=file_url("businesses"))
+    hero_image = models.ImageField(upload_to=file_url("businesses"), null=True)
 
     class Meta:
         verbose_name_plural = "Businesses"
@@ -95,6 +96,7 @@ class BusinessImage(TimeStampedModel):
         Business, on_delete=models.CASCADE, related_name="images"
     )
     image = models.ImageField(upload_to=file_url("businesses"))
+    alt = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return f"{self.business} Image"
