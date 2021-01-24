@@ -114,13 +114,13 @@ export async function getStaticProps({ params }) {
 }
 export async function getStaticPaths() {
   // TODO:? we need to update the build to pull from a current api before this can pass circle
-  let results = [];
-  try {
-    const { data } = await axios.get(URLS.api.directorySlugs);
-    results = data.results;
-  } catch (error) {
-    console.log(error);
-  }
+  const results = [];
+  // try {
+  //   const { data } = await axios.get(URLS.api.directorySlugs);
+  //   results = data.results;
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   const paths = results.map(item => {
     return {
