@@ -28,6 +28,7 @@ const DirectoryDetailPage = ({ business }) => {
   const classes = useStyles();
   const [tab, setTab] = useState(0);
 
+  if (!business) return null;
   const { events, promotions, testimonials } = business;
   const secondaryTabs = [
     ...(events.length && [
