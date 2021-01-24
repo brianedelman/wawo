@@ -15,7 +15,7 @@ DATABASES["default"] = env.db()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1", "1043fa1b7525.ngrok.io"] + env(  # nosec
+ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1"] + env(  # nosec
     "ALLOWED_HOSTS", default="*"
 ).split("|")
 
