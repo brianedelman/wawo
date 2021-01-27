@@ -16,6 +16,11 @@ class BusinessCategory(models.Model):
     description = models.TextField(null=True)
     slug = AutoSlugField(unique=True, populate_from="name",)
     image = models.ImageField(upload_to=file_url("categories"))
+    color_hex = models.CharField(
+        max_length=7,
+        help_text="Enter the hex code for the color of the category. Ex. #333333",
+        null=True,
+    )
 
     class Meta:
         verbose_name_plural = "business categories"

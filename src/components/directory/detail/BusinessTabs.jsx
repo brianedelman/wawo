@@ -22,9 +22,8 @@ function BusinessTabs({ currentTab, setTab, tabs }) {
         aria-label="business info tabs"
       >
         <Tab label="About" {...a11yProps(0)} />
-        <Tab label="Photos" {...a11yProps(1)} />
         {tabs.map((item, idx) => (
-          <Tab key={idx} label={item.label} {...a11yProps(idx + 2)} />
+          <Tab key={idx} label={item.label} {...a11yProps(idx + 1)} />
         ))}
       </Tabs>
     </Box>

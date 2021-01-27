@@ -138,7 +138,7 @@ export default function Header() {
         className={clsx(classes.appBar, trigger ? classes.small : '')}
       >
         <Toolbar disableGutters>
-          <Container maxWidth="lg" className={classes.height}>
+          <Container maxWidth="md" className={classes.height}>
             <Grid
               container
               justify="space-between"

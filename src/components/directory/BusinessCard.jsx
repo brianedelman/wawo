@@ -151,6 +151,7 @@ function BusinessCard({ business }) {
               componentType="button"
               variant="contained"
               color="secondary"
+              target="_blank"
             >
               Shop
             </Link>

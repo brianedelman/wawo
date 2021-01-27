@@ -7,13 +7,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Container, Typography } from '@material-ui/core';
 
 import BusinessAbout from 'components/directory/detail/BusinessAbout';
+import FounderAbout from 'components/directory/detail/FounderAbout';
 import BusinessInfo from 'components/directory/detail/BusinessInfo';
 import BusinessTabs from 'components/directory/detail/BusinessTabs';
 import BusinessTabPanel from 'components/directory/detail/BusinessTabPanel';
 import BusinessEvent from 'components/directory/detail/BusinessEvent';
 import BusinessPromotion from 'components/directory/detail/BusinessPromotion';
 import BusinessTestimonial from 'components/directory/detail/BusinessTestimonial';
-import BusinessImages from 'components/directory/detail/BusinessImages';
 
 const useStyles = makeStyles(() => ({
   hero: {
@@ -29,8 +29,15 @@ const DirectoryDetailPage = ({ business }) => {
   const [tab, setTab] = useState(0);
 
   if (!business) return null;
-  const { events, promotions, testimonials } = business;
+  const { founder, events, promotions, testimonials } = business;
   const secondaryTabs = [
+    ...(founder.displayFounderInformation && [
+      {
+        label: 'About the Founder',
+        content: [founder],
+        component: FounderAbout,
+      },
+    ]),
     ...(events.length && [
       {
         label: 'Events',
@@ -55,14 +62,14 @@ const DirectoryDetailPage = ({ business }) => {
   ];
   return (
     <>
-      <Container maxWidth="lg" disableGutters>
+      <Container maxWidth="md" disableGutters>
         <Box
           mb={5}
           style={{ backgroundImage: `url(${business.heroImage})` }}
           className={classes.hero}
         />
       </Container>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <BusinessInfo business={business} />
         <BusinessTabs
           business={business}
@@ -71,15 +78,10 @@ const DirectoryDetailPage = ({ business }) => {
           tabs={secondaryTabs}
         />
         <BusinessTabPanel currentTab={tab} index={0}>
-          <Typography variant="h3">About {business.name}</Typography>
           <BusinessAbout business={business} />
         </BusinessTabPanel>
-        <BusinessTabPanel currentTab={tab} index={1}>
-          <Typography variant="h3">Photos</Typography>
-          <BusinessImages business={business} />
-        </BusinessTabPanel>
         {secondaryTabs.map((tabItem, itemIdx) => (
-          <BusinessTabPanel currentTab={tab} index={itemIdx + 2}>
+          <BusinessTabPanel currentTab={tab} index={itemIdx + 1}>
             <Typography variant="h3">{tabItem.label}</Typography>
             <Grid container spacing={2}>
               {tabItem.content.map(item => {
@@ -114,14 +116,10 @@ export async function getStaticProps({ params }) {
   };
 }
 export async function getStaticPaths() {
-  // TODO:? we need to update the build to pull from a current api before this can pass circle
   const results = [];
-  // try {
+  // TODO: I think this is a blessed approach to just give static paths nothing, but might be worth
+  // looking into someday
   //   const { data } = await axios.get(URLS.api.directorySlugs);
-  //   results = data.results;
-  // } catch (error) {
-  //   console.log(error);
-  // }
 
   const paths = results.map(item => {
     return {

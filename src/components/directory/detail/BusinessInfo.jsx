@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginBottom: theme.spacing(2),
     maxWidth: '180px',
+    width: '100%',
   },
   container: {
     marginTop: theme.spacing(2),
@@ -114,17 +115,18 @@ function BusinessInfo({ business }) {
           </Box>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Box display="flex" flexDirection="column">
+          <Box display="flex" flexDirection="column" alignItems="flex-end">
             <Link
               href={business.businessUrl}
               componentType="button"
               className={classes.button}
               variant="contained"
               color="primary"
+              size="large"
             >
               Shop Now
             </Link>
-            <Button className={classes.button} variant="outlined">
+            <Button className={classes.button} variant="outlined" size="large">
               Share
             </Button>
           </Box>

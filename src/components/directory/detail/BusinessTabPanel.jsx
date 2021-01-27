@@ -10,7 +10,7 @@ function BusinessTabPanel({ children, currentTab, index, ...other }) {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      {currentTab === index && <Box p={3}>{children}</Box>}
+      {currentTab === index && <Box p={1}>{children}</Box>}
     </div>
   );
 }

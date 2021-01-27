@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     [theme.breakpoints.up('md')]: {
       width: '55%',
-      height: '460px',
+      minHeight: '460px',
     },
   },
   image: {
@@ -41,7 +41,10 @@ const useStyles = makeStyles(theme => ({
 const CategoryInfo = ({ category }) => {
   const classes = useStyles();
   return (
-    <Box className={classes.wrapper}>
+    <Box
+      className={classes.wrapper}
+      style={{ backgroundColor: category.colorHex }}
+    >
       <Box className={classes.text}>
         <Typography variant="h2" className={classes.title}>
           {category.name}

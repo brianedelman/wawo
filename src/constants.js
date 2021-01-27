@@ -59,6 +59,7 @@ const BUSINESS_CATEGORY_PROPS = shape({
   name: string.isRequired,
   slug: string.isRequired,
   image: string,
+  colorHex: string.isRequired,
 });
 
 const BUSINESS_IMAGE_PROPS = shape({
@@ -87,6 +88,7 @@ const BUSINESS_PROPS = shape({
 
 const PROPTYPES = {
   business: BUSINESS_PROPS,
+  founder: BUSINESS_USER_PROPS,
   category: BUSINESS_CATEGORY_PROPS,
 };
 

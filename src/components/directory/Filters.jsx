@@ -7,6 +7,10 @@ import {
   Hidden,
   Paper,
   Typography,
+  MenuItem,
+  Select,
+  FormControl,
+  InputLabel,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -90,7 +94,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Filters({ values, filteredCategory, ...rest }) {
+function Filters({ values, handleChange, filteredCategory, ...rest }) {
   const classes = useStyles();
 
   return (
@@ -113,23 +117,24 @@ function Filters({ values, filteredCategory, ...rest }) {
               disabled={false}
               {...rest}
             />
-            <AutoCompleteField
-              fullWidth
-              name="pricePoint"
-              type="text"
-              label="Price Point: All"
-              value={values.pricePoint}
-              optionLabel={option => `${option.label}`}
-              className={classes.field}
-              callback={() => [
-                { label: '$', value: 1 },
-                { label: '$$', value: 2 },
-                { label: '$$$', value: 3 },
-                { label: '$$$$', value: 4 },
-              ]}
-              disabled={false}
-              {...rest}
-            />
+            <FormControl variant="filled" className={classes.formControl}>
+              <InputLabel id="label-for-price-point">Price Point</InputLabel>
+              <Select
+                labelId="label-for-price-point"
+                id="price-point"
+                className={classes.field}
+                name="pricePoint"
+                value={values.pricePoint}
+                variant="filled"
+                onChange={handleChange('pricePoint')}
+              >
+                <MenuItem value={null}>Price Point: All</MenuItem>
+                <MenuItem value={1}>$</MenuItem>
+                <MenuItem value={2}>$$</MenuItem>
+                <MenuItem value={3}>$$$</MenuItem>
+                <MenuItem value={4}>$$$$</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
           <InputField
             fullWidth
@@ -185,6 +190,7 @@ function Filters({ values, filteredCategory, ...rest }) {
 Filters.propTypes = {
   filteredCategory: PropTypes.object,
   values: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 Filters.defaultProps = {
   filteredCategory: null,

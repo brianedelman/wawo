@@ -106,6 +106,15 @@ const theme = createMuiTheme({
       textTransform: 'none',
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1000,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
   overrides: {
     MuiInputBase: {
       root: {
@@ -117,6 +126,7 @@ const theme = createMuiTheme({
         border: '2px solid #FA9987',
       },
     },
+
     MuiTooltip: {
       tooltip: {
         padding: '8px 16px',

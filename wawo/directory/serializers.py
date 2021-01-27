@@ -15,12 +15,7 @@ from .models import (
 class BusinessCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = BusinessCategory
-        fields = [
-            "name",
-            "description",
-            "slug",
-            "image",
-        ]
+        fields = ["name", "description", "slug", "image", "color_hex"]
 
 
 class BusinessEventSerializer(serializers.ModelSerializer):

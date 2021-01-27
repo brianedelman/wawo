@@ -100,7 +100,7 @@ function Businesses({ businesses, totalPages }) {
 
   return (
     <>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Box
           display="flex"
           flexDirection="column"
@@ -188,17 +188,18 @@ function Businesses({ businesses, totalPages }) {
         }}
         onSubmit={handleFormSubmit}
       >
-        {({ values, errors, handleSubmit }) => (
+        {({ values, errors, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <Filters
               values={values}
               errors={errors}
               filteredCategory={filteredCategory}
+              handleChange={handleChange}
             />
           </Form>
         )}
       </Formik>
-      <Container maxWidth="lg">
+      <Container maxWidth="md">
         <Box display="flex" justifyContent="center">
           {filteringInProgress ? (
             <Loading />
