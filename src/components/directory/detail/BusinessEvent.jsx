@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { Box, CardMedia, Card, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,13 +26,21 @@ const useStyles = makeStyles(theme => ({
   media: {
     height: 220,
   },
-  button: {
+  absoluteButton: {
     position: 'absolute',
     width: '100%',
     bottom: 0,
   },
+  button: {
+    width: '100%',
+  },
   imageCard: {
     position: 'relative',
+  },
+  buttonCard: {
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center',
   },
 }));
 
@@ -76,16 +85,25 @@ function BusinessEvent({ content }) {
             </Box>
           </Grid>
           <Grid item xs={12} md={3}>
-            <Card className={classes.imageCard}>
-              <CardMedia
-                className={classes.media}
-                image={content.image}
-                title={`${content.name} event image`}
-              />
+            <Card
+              className={clsx(
+                content.image ? classes.imageCard : classes.buttonCard
+              )}
+              elevation={content.image ? 1 : 0}
+            >
+              {content.image && (
+                <CardMedia
+                  className={classes.media}
+                  image={content.image}
+                  title={`${content.name} event image`}
+                />
+              )}
               <Link
                 href={content.link}
                 componentType="button"
-                className={classes.button}
+                className={clsx(
+                  content.image ? classes.absoluteButton : classes.button
+                )}
                 variant="contained"
                 color="secondary"
               >

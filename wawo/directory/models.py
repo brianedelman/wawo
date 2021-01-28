@@ -117,7 +117,7 @@ class BusinessEvent(TimeStampedModel):
     when = models.CharField(max_length=100)
     location = models.CharField(max_length=60)
 
-    image = models.ImageField(upload_to=file_url("events"))
+    image = models.ImageField(upload_to=file_url("events"), null=True, blank=True)
 
     def __str__(self):
         return self.name

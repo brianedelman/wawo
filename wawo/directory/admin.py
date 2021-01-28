@@ -75,7 +75,7 @@ class BusinessCategoryAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 class BusinessEventAdmin(ImportExportMixin, admin.ModelAdmin):
-    fields = ("business", "name", "description", "link", "when", "location")
+    fields = ("business", "name", "description", "image", "link", "when", "location")
     autocomplete_fields = ("business",)
     list_display = ("id", "name", "business", "link")
 
