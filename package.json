@@ -70,6 +70,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-instagram-authless-feed": "jamesmoriarty/react-instagram-authless-feed#v1.1.1",
+    "react-slick": "^0.28.0",
     "swr": "^0.2.3",
     "yup": "^0.28.3"
   },

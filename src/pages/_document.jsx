@@ -40,6 +40,7 @@ export default class MyDocument extends Document {
             media="print"
             onLoad="this.media='all'"
           />
+          <link href="/slick.min.css" rel="stylesheet" />
           <link href="/fonts/style.css" rel="stylesheet" />
 
           <link

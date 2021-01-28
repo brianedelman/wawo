@@ -19,6 +19,7 @@ const theme = createMuiTheme({
     pink: '#fbd1d0',
     black: '#222',
     salmon: '#FA9987',
+    white: '#fff',
     text: {
       primary: '#293039',
       secondary: '#757575',

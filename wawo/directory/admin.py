@@ -8,6 +8,7 @@ from .models import (
     BusinessImage,
     BusinessPromotion,
     BusinessTestimonial,
+    CarouselImage,
 )
 
 
@@ -25,6 +26,10 @@ class TestimonialInline(admin.TabularInline):
 
 class ImageInline(admin.TabularInline):
     model = BusinessImage
+
+
+class CarouselImageInline(admin.TabularInline):
+    model = CarouselImage
 
 
 class BusinessAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -62,6 +67,7 @@ class BusinessAdmin(ImportExportMixin, admin.ModelAdmin):
         PromotionInline,
         TestimonialInline,
         ImageInline,
+        CarouselImageInline,
     )
 
 
@@ -88,6 +94,17 @@ class BusinessImageAdmin(admin.ModelAdmin):
     )
     autocomplete_fields = ("business",)
     list_display = ("id", "business", "image", "alt")
+
+
+class CarouselImageAdmin(admin.ModelAdmin):
+    fields = (
+        "business",
+        "image",
+        "position",
+        "alt",
+    )
+    autocomplete_fields = ("business",)
+    list_display = ("id", "business", "image", "alt", "position")
 
 
 class BusinessPromotionAdmin(admin.ModelAdmin):
@@ -125,5 +142,6 @@ admin.site.register(Business, BusinessAdmin)
 admin.site.register(BusinessEvent, BusinessEventAdmin)
 admin.site.register(BusinessCategory, BusinessCategoryAdmin)
 admin.site.register(BusinessImage, BusinessImageAdmin)
+admin.site.register(CarouselImage, CarouselImageAdmin)
 admin.site.register(BusinessPromotion, BusinessPromotionAdmin)
 admin.site.register(BusinessTestimonial, BusinessTestimonialAdmin)

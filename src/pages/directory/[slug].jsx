@@ -1,10 +1,10 @@
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'util/axios';
 import { URLS } from 'constants.js';
-import { makeStyles } from '@material-ui/core/styles';
 
-import { Box, Grid, Container, Typography } from '@material-ui/core';
+import { Grid, Container, Typography } from '@material-ui/core';
 
 import BusinessAbout from 'components/directory/detail/BusinessAbout';
 import FounderAbout from 'components/directory/detail/FounderAbout';
@@ -15,17 +15,15 @@ import BusinessEvent from 'components/directory/detail/BusinessEvent';
 import BusinessPromotion from 'components/directory/detail/BusinessPromotion';
 import BusinessTestimonial from 'components/directory/detail/BusinessTestimonial';
 
-const useStyles = makeStyles(() => ({
-  hero: {
-    width: '100%',
-    height: '400px',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-}));
+// SSR causes responsive to fail, so dynamic importing
+const SliderComponentNoSSR = dynamic(
+  import('components/directory/detail/ImageCarousel'),
+  {
+    ssr: false,
+  }
+);
 
 const DirectoryDetailPage = ({ business }) => {
-  const classes = useStyles();
   const [tab, setTab] = useState(0);
 
   if (!business) return null;
@@ -60,14 +58,11 @@ const DirectoryDetailPage = ({ business }) => {
       },
     ]),
   ];
+  console.log(business);
   return (
     <>
       <Container maxWidth="md" disableGutters>
-        <Box
-          mb={5}
-          style={{ backgroundImage: `url(${business.heroImage})` }}
-          className={classes.hero}
-        />
+        <SliderComponentNoSSR images={business.carouselImages} />
       </Container>
       <Container maxWidth="md">
         <BusinessInfo business={business} />

@@ -9,6 +9,7 @@ from .models import (
     BusinessImage,
     BusinessPromotion,
     BusinessTestimonial,
+    CarouselImage,
 )
 
 
@@ -56,16 +57,20 @@ class BusinessPromotionSerializer(serializers.ModelSerializer):
 class BusinessImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = BusinessImage
-        fields = [
-            "id",
-            "image",
-        ]
+        fields = ["id", "image", "alt"]
+
+
+class CarouselImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarouselImage
+        fields = ["id", "image", "alt", "position"]
 
 
 class BusinessSerializer(serializers.ModelSerializer):
     founder = BusinessUserSerializer()
     business_type = serializers.SerializerMethodField()
     price_point = serializers.SerializerMethodField()
+    carousel_images = CarouselImageSerializer(many=True)
     images = BusinessImageSerializer(many=True)
     events = BusinessEventSerializer(many=True)
     categories = BusinessCategorySerializer(many=True)
@@ -96,6 +101,7 @@ class BusinessSerializer(serializers.ModelSerializer):
             "main_image",
             "hero_image",
             "images",
+            "carousel_images",
             "events",
             "testimonials",
             "promotions",

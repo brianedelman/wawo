@@ -96,6 +96,21 @@ class Business(LocationBase, TimeStampedModel):
         return self.name
 
 
+# TODO limit the amount either in backend or on frontend?
+class CarouselImage(TimeStampedModel):
+    business = models.ForeignKey(
+        Business, on_delete=models.CASCADE, related_name="carousel_images"
+    )
+    image = models.ImageField(upload_to=file_url("businesses"))
+    alt = models.CharField(max_length=100)
+    position = models.PositiveIntegerField(
+        default=1, help_text="Order of the image, smaller being displayed first",
+    )
+
+    def __str__(self):
+        return f"{self.business} Carousel Image {self.alt}"
+
+
 class BusinessImage(TimeStampedModel):
     business = models.ForeignKey(
         Business, on_delete=models.CASCADE, related_name="images"

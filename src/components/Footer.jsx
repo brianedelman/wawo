@@ -68,7 +68,12 @@ const Footer = () => {
   return (
     <Paper className={classes.footer} elevation={0} square>
       <Container maxWidth="md" className={classes.height}>
-        <Grid container alignItems="center" className={classes.height}>
+        <Grid
+          container
+          alignItems="center"
+          justify="space-between"
+          className={classes.height}
+        >
           <Grid
             item
             xs={12}
