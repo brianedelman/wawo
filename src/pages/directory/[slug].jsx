@@ -58,7 +58,6 @@ const DirectoryDetailPage = ({ business }) => {
       },
     ]),
   ];
-  console.log(business);
   return (
     <>
       <Container maxWidth="md" disableGutters>
@@ -76,7 +75,7 @@ const DirectoryDetailPage = ({ business }) => {
           <BusinessAbout business={business} />
         </BusinessTabPanel>
         {secondaryTabs.map((tabItem, itemIdx) => (
-          <BusinessTabPanel currentTab={tab} index={itemIdx + 1}>
+          <BusinessTabPanel key={itemIdx} currentTab={tab} index={itemIdx + 1}>
             <Typography variant="h3">{tabItem.label}</Typography>
             <Grid container spacing={2}>
               {tabItem.content.map(item => {

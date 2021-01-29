@@ -85,13 +85,8 @@ function ImageCarousel({ images }) {
   return (
     <Slider {...settings}>
       {images.map(img => (
-        <div>
-          <img
-            className={classes.image}
-            key={img.id}
-            src={img.image}
-            alt={img.alt}
-          />
+        <div key={img.id}>
+          <img className={classes.image} src={img.image} alt={img.alt} />
         </div>
       ))}
     </Slider>

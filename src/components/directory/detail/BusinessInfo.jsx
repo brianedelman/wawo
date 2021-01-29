@@ -1,12 +1,5 @@
 import { PROPTYPES } from 'constants.js';
-import {
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  IconButton,
-  Typography,
-} from '@material-ui/core';
+import { Box, Grid, Hidden, IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -16,6 +9,7 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 import Link from 'components/router/Link';
 import CategoryShortList from 'components/CategoryShortList';
+import ShareButton from 'components/ShareButton';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -157,9 +151,10 @@ function BusinessInfo({ business }) {
             >
               Shop Now
             </Link>
-            <Button className={classes.button} variant="outlined" size="large">
-              Share
-            </Button>
+            <ShareButton
+              shareTitle={business.name}
+              shareMedia={business.mainImage}
+            />
           </Box>
         </Grid>
       </Grid>
