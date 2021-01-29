@@ -15,13 +15,17 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
   },
   boxLeft: {
-    width: '25%',
-    minWidth: '225px',
-    marginRight: theme.spacing(3),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      minWidth: '225px',
+      width: '25%',
+    },
   },
   boxRight: {
-    width: '65%',
-    marginRight: theme.spacing(3),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '65%',
+    },
   },
   media: {
     height: 220,
@@ -59,6 +63,7 @@ function BusinessEvent({ content }) {
               display="flex"
               flexDirection="row"
               justifyContent="space-between"
+              flexWrap="wrap"
             >
               <Box className={classes.boxLeft}>
                 <Box flex={1} display="flex" flexDirection="column" mb={2}>

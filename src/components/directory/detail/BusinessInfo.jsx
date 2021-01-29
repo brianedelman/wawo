@@ -1,5 +1,12 @@
 import { PROPTYPES } from 'constants.js';
-import { Box, Button, Grid, IconButton, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Grid,
+  Hidden,
+  IconButton,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -25,6 +32,28 @@ const useStyles = makeStyles(theme => ({
   },
   categoryList: {
     fontSize: theme.typography.pxToRem(18),
+  },
+  buttonWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    '& .MuiButtonBase-root': {
+      marginRight: theme.spacing(2),
+    },
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      '& .MuiButtonBase-root': {
+        marginRight: 0,
+        width: '100%',
+        maxWidth: '100%',
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      '& .MuiButtonBase-root': {
+        marginRight: 0,
+      },
+    },
   },
 }));
 
@@ -111,11 +140,13 @@ function BusinessInfo({ business }) {
               </Box>
             </Box>
 
-            <Box px={2} />
+            <Hidden xsDown implementation="css">
+              <Box px={2} />
+            </Hidden>
           </Box>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Box display="flex" flexDirection="column" alignItems="flex-end">
+          <Box className={classes.buttonWrapper}>
             <Link
               href={business.businessUrl}
               componentType="button"

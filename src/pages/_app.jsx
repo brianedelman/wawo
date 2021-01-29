@@ -72,7 +72,7 @@ export default function App(props) {
   return (
     <>
       <Head>
-        <title>Lightmatter!</title>
+        <title>We Are Women Owned</title>
         {!user ? (
           <link
             rel="preload"

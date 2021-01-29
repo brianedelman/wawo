@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   active: {
     border: `2px solid ${theme.palette.salmon}`,
   },
+  grid: {
+    flexDirection: 'column-reverse',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    },
+  },
 }));
 
 function BusinessAbout({ business }) {
@@ -39,13 +45,34 @@ function BusinessAbout({ business }) {
 
   return (
     <Box className={classes.container}>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} className={classes.grid}>
         <Grid item xs={12} md={6}>
           <img
             className={classes.image}
             src={selectedImage.image}
             alt={business.name}
           />
+          <Grid container spacing={2}>
+            {business.images.map((image, idx) => (
+              <Grid container item xs={4} md={4} key={idx}>
+                <Button
+                  className={clsx(
+                    classes.button,
+                    selectedImage.id === image.id && classes.active
+                  )}
+                  disableElevation
+                  disableRipple
+                  onClick={() => setSelectedImage(image)}
+                >
+                  <img
+                    className={classes.smallImage}
+                    src={image.image}
+                    alt={business.name}
+                  />
+                </Button>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="h3">About {business.name}</Typography>
@@ -68,27 +95,7 @@ function BusinessAbout({ business }) {
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
-        {business.images.map((image, idx) => (
-          <Grid container item xs={12} md={2} key={idx}>
-            <Button
-              className={clsx(
-                classes.button,
-                selectedImage.id === image.id && classes.active
-              )}
-              disableElevation
-              disableRipple
-              onClick={() => setSelectedImage(image)}
-            >
-              <img
-                className={classes.smallImage}
-                src={image.image}
-                alt={business.name}
-              />
-            </Button>
-          </Grid>
-        ))}
-      </Grid>
+      <Grid container spacing={2} />
 
       <Box />
     </Box>

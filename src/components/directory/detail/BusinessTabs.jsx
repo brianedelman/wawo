@@ -18,7 +18,7 @@ function BusinessTabs({ currentTab, setTab, tabs }) {
         indicatorColor="primary"
         textColor="primary"
         variant="scrollable"
-        scrollButtons="auto"
+        scrollButtons="on"
         aria-label="business info tabs"
       >
         <Tab label="About" {...a11yProps(0)} />
