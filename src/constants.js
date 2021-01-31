@@ -40,6 +40,7 @@ const URLS = {
     directorySlugs: `${DIRECTORY_BASE}business-slugs/`,
     categories: `${DIRECTORY_BASE}categories/`,
   },
+  pagesFind: '/api/v2/pages/find/?html_path=',
 };
 
 const BUSINESS_USER_PROPS = shape({

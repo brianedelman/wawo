@@ -1,14 +1,31 @@
 from wagtail.core.blocks import (
+    BooleanBlock,
     CharBlock,
+    ChoiceBlock,
     IntegerBlock,
     PageChooserBlock,
     RichTextBlock,
     StreamBlock,
     StructBlock,
+    StructValue,
     TextBlock,
     URLBlock,
 )
 from wagtail.images.blocks import ImageChooserBlock
+
+from . import constants
+
+
+class APIImageChooserBlock(ImageChooserBlock):
+    def get_api_representation(self, value, context=None):
+        # pylint: disable=cyclic-import
+        from . import serializers as local_serializers  # noqa
+
+        # pylint: enable=cyclic-import
+
+        return local_serializers.ImageSerializer(context=context).to_representation(
+            value
+        )
 
 
 class ComponentStreamBlock(StreamBlock):
@@ -51,19 +68,72 @@ class ComponentStructBlock(StructBlock):
 
 class TitleBlock(ComponentStructBlock):
     title = CharBlock()
+    variant = ChoiceBlock(choices=constants.HEADING_CHOICES, default="h1")
+    component = CharBlock(
+        max_length="2",
+        required=False,
+        help_text="""Enter h1, h2, h3, h4, h5, or h6. This will mean the component gets the styling
+        of an h1 (for instance with the variant) but the html tag will be an h2 (for instance)""",
+    )
+    color_override = CharBlock(
+        max_length=7, required=False, help_text="Hex code of color"
+    )
+    background_color = CharBlock(
+        max_length=7,
+        required=False,
+        help_text="Meant to use as a full width background color",
+    )
+    alignment = ChoiceBlock(choices=constants.ALIGNMENT_CHOICES, default="center")
+    containment = ChoiceBlock(choices=constants.CONTAINMENT_CHOICES, default="md")
 
     class Meta:
         component = "Title"
         template = "blocks/title_block.html"
 
 
-class LinkBlock(ComponentStructBlock):
-    link_text = CharBlock(max_length=100, required=False)
-    page_link = PageChooserBlock(label="Page")
+class CustomRichTextBlock(ComponentStructBlock):
+    text = RichTextBlock()
+    alignment = ChoiceBlock(choices=constants.ALIGNMENT_CHOICES, default="center")
+    containment = ChoiceBlock(choices=constants.CONTAINMENT_CHOICES, default="md")
 
     class Meta:
-        component = "Link"
-        template = "blocks/link_block.html"
+        component = "CustomRichText"
+
+
+class LinkStructValue(StructValue):
+    def url(self):
+        url = self.get("url")
+        page = self.get("page")
+        if url:
+            return url
+        if page:
+            return page.url
+        return ""
+
+
+class LinkBlock(ComponentStructBlock):
+    link_text = CharBlock(max_length=100)
+    page = PageChooserBlock(label="Internal Page", required=False)
+    url = CharBlock(
+        label="URL to internal page (like directory) or external site", required=False
+    )
+    component_type = ChoiceBlock(
+        choices=constants.LINK_COMPONENT_TYPE_CHOICES, default="button"
+    )
+    button_background = ChoiceBlock(
+        choices=constants.COLOR_PROP_CHOICES, default="primary"
+    )
+    button_variant = ChoiceBlock(
+        choices=constants.BUTTON_VARIANT_PROP_CHOICES, default="contained"
+    )
+    button_size = ChoiceBlock(
+        choices=constants.BUTTON_SIZE_PROP_CHOICES, default="medium"
+    )
+    color = CharBlock(max_length=7, required=False, help_text="Hex code of color")
+
+    class Meta:
+        component = "LinkButton"
+        value_class = LinkStructValue
 
 
 class ColumnBlock(ComponentStructBlock):
@@ -72,7 +142,7 @@ class ColumnBlock(ComponentStructBlock):
         [
             ("title", TitleBlock(required=False)),
             ("text", RichTextBlock(required=False)),
-            ("image", ImageChooserBlock(required=False)),
+            ("image", APIImageChooserBlock(required=False)),
             ("link", LinkBlock(required=False)),
         ]
     )
@@ -98,6 +168,23 @@ class SpacerBlock(ComponentStructBlock):
         template = "blocks/spacer.html"
 
 
+class HeroBlock(ComponentStructBlock):
+    height_override = IntegerBlock(
+        default=0, help_text="Override default styling for minheight"
+    )
+    mobile_height_override = IntegerBlock(
+        default=0, help_text="Override default styling for minheight for mobile"
+    )
+    image = APIImageChooserBlock()
+    title = CharBlock(required=False)
+    text = RichTextBlock(required=False)
+    contained = BooleanBlock(default=True, required=False)
+
+    class Meta:
+        component = "Hero"
+        icon = "image / picture"
+
+
 class RowBlock(ComponentStructBlock):
     content = StreamBlock([("column", ColumnBlock(required=False))])
 
@@ -111,7 +198,15 @@ class RowBlock(ComponentStructBlock):
 class SectionBlock(ComponentStructBlock):
     special_class = CharBlock(required=False)
 
-    rows = StreamBlock([("row", RowBlock()), ("spacer", SpacerBlock()),])
+    rows = StreamBlock(
+        [
+            ("row", RowBlock()),
+            ("title", TitleBlock()),
+            ("text", CustomRichTextBlock()),
+            ("link", LinkBlock()),
+            ("spacer", SpacerBlock()),
+        ]
+    )
 
     class Meta:
         component = "Section"

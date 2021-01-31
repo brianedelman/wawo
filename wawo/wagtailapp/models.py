@@ -1,6 +1,7 @@
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.api import APIField
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
@@ -60,10 +61,18 @@ class BasePage(Page):
 
 class ContentPage(BasePage):
     body = StreamField(
-        [("spacer", blocks.SpacerBlock()), ("section", blocks.SectionBlock()),],
+        [
+            ("spacer", blocks.SpacerBlock()),
+            ("section", blocks.SectionBlock()),
+            ("hero", blocks.HeroBlock()),
+        ],
         blank=True,
     )
 
     content_panels = BasePage.content_panels + [
         StreamFieldPanel("body"),
+    ]
+
+    api_fields = [
+        APIField("body"),
     ]
