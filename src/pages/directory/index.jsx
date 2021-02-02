@@ -23,9 +23,9 @@ DirectoryLanding.defaultProps = {
 
 export async function getStaticProps() {
   let data = { data: null };
-  if (!process.env.IS_CIRCLE) {
-    data = await axios.get(`${URLS.pagesFind}directory/`);
-  }
+  // if (!process.env.IS_CIRCLE) {
+  //   data = await axios.get(`${URLS.pagesFind}directory/`);
+  // }
   return {
     props: {
       data: data.data,
