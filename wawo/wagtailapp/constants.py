@@ -4,8 +4,10 @@ LINK_COMPONENT_TYPE_CHOICES = (
 )
 
 COLOR_PROP_CHOICES = (
+    ("default", "Default"),
     ("primary", "Primary"),
     ("secondary", "Secondary"),
+    ("inherit", "Inherit"),
 )
 
 BUTTON_VARIANT_PROP_CHOICES = (

@@ -185,6 +185,37 @@ class HeroBlock(ComponentStructBlock):
         icon = "image / picture"
 
 
+class FeaturedItemBlock(ComponentStructBlock):
+    title = CharBlock(max_length=60)
+    title_right = CharBlock(
+        max_length=5,
+        required=False,
+        help_text="Small section of text immediately to the right of the title. Used for price point",
+    )
+    sub_title = CharBlock(
+        max_length=80,
+        required=False,
+        help_text="This content is seen before hover, below the title.",
+    )
+    text = RichTextBlock()
+    image = APIImageChooserBlock()
+    links = StreamBlock([("link", LinkBlock()),])
+    is_large = BooleanBlock(default=False, required=False)
+
+    class Meta:
+        component = "FeaturedItem"
+        icon = "image / picture"
+
+
+class FeaturedSectionBlock(ComponentStructBlock):
+    title = CharBlock(required=False)
+    content = StreamBlock([("featured_item", FeaturedItemBlock())])
+
+    class Meta:
+        component = "FeaturedSection"
+        icon = "image / picture"
+
+
 class RowBlock(ComponentStructBlock):
     content = StreamBlock([("column", ColumnBlock(required=False))])
 
@@ -205,6 +236,7 @@ class SectionBlock(ComponentStructBlock):
             ("text", CustomRichTextBlock()),
             ("link", LinkBlock()),
             ("spacer", SpacerBlock()),
+            ("featured_section", FeaturedSectionBlock()),
         ]
     )
 

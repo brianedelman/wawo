@@ -18,7 +18,7 @@ const StreamField = ({ stream }) => {
     }
     return <StreamComponent stream={section.value} key={section.id} />;
   });
-  return <div>{sections}</div>;
+  return <>{sections}</>;
 };
 
 StreamField.propTypes = {
