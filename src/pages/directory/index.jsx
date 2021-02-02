@@ -25,7 +25,7 @@ export async function getStaticProps() {
   let data = { data: null };
   try {
     data = await axios.get(`${URLS.pagesFind}directory/`);
-  } catch {
+  } catch (e) {
     console.log('No page');
   }
   return {
