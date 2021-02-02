@@ -23,7 +23,6 @@ DirectoryLanding.defaultProps = {
 
 export async function getStaticProps() {
   let data = { data: null };
-  console.log('hiiiii');
   console.log(process.env.IS_CIRCLE);
   console.log(process.env.SERVER_BASE_URL);
   if (!process.env.IS_CIRCLE) {
