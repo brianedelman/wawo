@@ -5,6 +5,7 @@ import { URLS } from 'constants.js';
 import StreamField from 'components/streamfield/StreamField';
 
 const DirectoryLanding = ({ data }) => {
+  if (!data?.body) return <></>;
   return (
     <>
       <StreamField stream={data?.body} />
@@ -21,13 +22,15 @@ DirectoryLanding.defaultProps = {
 };
 
 export async function getStaticProps() {
-  const { data } = await axios.get(`${URLS.pagesFind}directory/`);
+  let data = { data: null };
+  if (!process.env.IS_CIRCLE) {
+    data = await axios.get(`${URLS.pagesFind}directory/`);
+  }
   return {
     props: {
-      data,
+      data: data.data,
     },
     revalidate: 1,
-    notFound: true,
   };
 }
 
