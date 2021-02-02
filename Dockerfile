@@ -33,7 +33,9 @@ ARG SENTRY_ORG="wawo"
 ARG APP_VERSION_RELEASE
 ARG BUILD_TIME
 ARG API_BASE_URL=""
-ARG SERVER_BASE_URL="http://127.0.0.1:8000"
+# ARG SERVER_BASE_URL="http://127.0.0.1:8000"
+ARG SERVER_BASE_URL="https://wawo-development.herokuapp.com"
+
 ARG AWS_S3_CUSTOM_DOMAIN
 
 #add nextjs runit files
