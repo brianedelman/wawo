@@ -20,6 +20,7 @@ BUTTON_SIZE_PROP_CHOICES = (
     ("small", "Small"),
     ("medium", "Medium"),
     ("large", "Large"),
+    ("xl", "Extra Large"),
 )
 
 ALIGNMENT_CHOICES = (

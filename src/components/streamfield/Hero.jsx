@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      backgroundImage: `url(${props.image.scaledUrl})`,
     };
 
     const img = props.image;
@@ -51,7 +52,6 @@ const Hero = ({ stream }) => {
   const classes = useStyles(stream);
 
   const {
-    image,
     heightOverride,
     mobileHeightOverride,
     text,
@@ -63,7 +63,6 @@ const Hero = ({ stream }) => {
     <Container maxWidth={contained ? 'md' : false} disableGutters>
       <Box
         mb={5}
-        style={{ backgroundImage: `url(${image.scaledUrl})` }}
         className={clsx(
           classes.hero,
           heightOverride && classes.heightOverride,

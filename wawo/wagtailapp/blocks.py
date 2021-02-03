@@ -216,6 +216,27 @@ class FeaturedSectionBlock(ComponentStructBlock):
         icon = "image / picture"
 
 
+class ColorInfoSectionBlock(ComponentStructBlock):
+    title = CharBlock(required=False)
+    image = APIImageChooserBlock()
+    text = RichTextBlock(required=False)
+    is_reversed = BooleanBlock(
+        default=False,
+        required=False,
+        help_text="If it is reversed, the image will be on left side of screen.",
+    )
+    background_color = CharBlock(
+        max_length=7,
+        required=False,
+        help_text="Meant to use as a full width background color",
+    )
+    link = LinkBlock()
+
+    class Meta:
+        component = "ColorInfoSection"
+        icon = "image / picture"
+
+
 class RowBlock(ComponentStructBlock):
     content = StreamBlock([("column", ColumnBlock(required=False))])
 
@@ -237,6 +258,7 @@ class SectionBlock(ComponentStructBlock):
             ("link", LinkBlock()),
             ("spacer", SpacerBlock()),
             ("featured_section", FeaturedSectionBlock()),
+            ("color_info_section", ColorInfoSectionBlock()),
         ]
     )
 

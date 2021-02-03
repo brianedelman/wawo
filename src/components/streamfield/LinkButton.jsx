@@ -8,6 +8,11 @@ const useStyles = makeStyles(theme => ({
   colorOverride: {
     color: props => props.color,
   },
+  xlButton: {
+    minHeight: '62px',
+    minWidth: '180px',
+    fontSize: theme.typography.pxToRem(20),
+  },
   wrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -32,7 +37,10 @@ const LinkButton = ({ stream }) => {
       <Link
         href={page || url}
         componentType={componentType}
-        className={clsx(classes.button, color && classes.colorOverride)}
+        className={clsx(
+          color && classes.colorOverride,
+          buttonSize === 'xl' && classes.xlButton
+        )}
         variant={buttonVariant}
         color={buttonBackground}
         size={buttonSize}

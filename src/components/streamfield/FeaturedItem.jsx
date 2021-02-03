@@ -135,7 +135,7 @@ const FeaturedItem = ({ stream }) => {
 };
 FeaturedItem.propTypes = {
   stream: PropTypes.shape({
-    image: PropTypes.string.isRequired,
+    image: PropTypes.object.isRequired,
     isLarge: PropTypes.bool.isRequired,
     links: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
