@@ -45,16 +45,19 @@ class BusinessFilter(filters.FilterSet):
     search = filters.CharFilter(method="filter_search", label="Search")
     location = filters.CharFilter(method="filter_location", label="City or zip code")
     type = filters.CharFilter(method="filter_type", label="Business Type")
+    founder = filters.CharFilter(method="filter_founder", label="Founder")
 
     class Meta:
         model = Business
         fields = [
             "location",
             "category",
+            "founder",
             "price_point",
             "search",
             "location",
             "type",
+            "founder",
         ]
 
     def filter_category(self, queryset, name, value):  # pylint: disable=unused-argument
@@ -80,12 +83,15 @@ class BusinessFilter(filters.FilterSet):
         business_type = BusinessType[value.upper()].value
         return queryset.filter(business_type=business_type)
 
+    def filter_founder(self, queryset, name, value):  # pylint: disable=unused-argument
+        return queryset.filter(founder=value)
+
 
 class BusinessViewSet(viewsets.ModelViewSet):
 
     queryset = Business.objects.prefetch_related(
         "categories", "events", "promotions", "testimonials", "images"
-    )
+    ).select_related("founder")
     lookup_field = "slug"
     serializer_class = BusinessSerializer
     permission_classes = [IsBusinessUser]

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 function FounderAbout({ content }) {
   const classes = useStyles();
 
-  const about = content.about.split('\n');
+  const about = content.about?.split('\n') || [];
   const founderName = `${content.displayFirstName} ${content.displayLastName}`;
   return (
     <Box className={classes.container}>

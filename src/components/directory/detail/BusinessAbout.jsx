@@ -47,11 +47,13 @@ function BusinessAbout({ business }) {
     <Box className={classes.container}>
       <Grid container spacing={4} className={classes.grid}>
         <Grid item xs={12} md={6}>
-          <img
-            className={classes.image}
-            src={selectedImage.image}
-            alt={business.name}
-          />
+          {selectedImage && (
+            <img
+              className={classes.image}
+              src={selectedImage.image}
+              alt={business.name}
+            />
+          )}
           <Grid container spacing={2}>
             {business.images.map((image, idx) => (
               <Grid container item xs={4} md={4} key={idx}>
@@ -74,7 +76,7 @@ function BusinessAbout({ business }) {
             ))}
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={selectedImage ? 6 : 12}>
           <Typography variant="h3">About {business.name}</Typography>
           {description.map((desc, idx) => (
             <Typography paragraph variant="body1" key={idx}>

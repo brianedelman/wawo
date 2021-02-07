@@ -50,6 +50,18 @@ class BusinessViewSetTest(TestCase):
         self.assertEqual(
             rsp["categories"][0]["slug"], self.business.categories.first().slug
         )
+        self.assertEqual(rsp["has_other_businesses"], False)
+
+    def test_business_viewset_returns_correct_data__has_other_businesses(self):
+        url = reverse("business-list")
+
+        self.client.force_login(self.user)
+        self.business1 = baker.make_recipe("wawo.directory.business1")
+        self.business1.founder = self.business.founder
+        self.business1.save()
+        response = self.client.get(url)
+        rsp = response.json().get("results")[0]
+        self.assertEqual(rsp["has_other_businesses"], True)
 
     def test_business_viewset_returns_correct_data__filter_category(self):
         url = reverse("business-list")
@@ -146,3 +158,14 @@ class BusinessViewSetTest(TestCase):
         self.assertEqual(response.json().get("count"), 1)
         rsp = response.json().get("results")[0]
         self.assertEqual(rsp["name"], self.business1.name)
+
+    def test_business_viewset_returns_correct_data__filter_founder(self):
+        url = reverse("business-list")
+
+        self.business1 = baker.make_recipe("wawo.directory.business1")
+        self.client.force_login(self.user)
+        response = self.client.get(f"{url}?founder={self.business1.founder.id}")
+        self.assertEqual(response.json().get("count"), 1)
+        rsp = response.json().get("results")[0]
+        self.assertEqual(rsp["name"], self.business1.name)
+        self.assertEqual(rsp["founder"]["id"], self.business1.founder.id)

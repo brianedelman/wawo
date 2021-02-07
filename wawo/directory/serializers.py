@@ -78,6 +78,7 @@ class BusinessSerializer(serializers.ModelSerializer):
     promotions = BusinessPromotionSerializer(many=True)
     location_type = serializers.SerializerMethodField()
     location = serializers.SerializerMethodField()
+    has_other_businesses = serializers.SerializerMethodField()
 
     class Meta:
         model = Business
@@ -113,6 +114,7 @@ class BusinessSerializer(serializers.ModelSerializer):
             "country",
             "location",
             "postal_code",
+            "has_other_businesses",
         ]
 
     def get_location_type(self, obj):
@@ -126,6 +128,10 @@ class BusinessSerializer(serializers.ModelSerializer):
 
     def get_price_point(self, obj):
         return obj.get_price_point_display()
+
+    def get_has_other_businesses(self, obj):
+        """return related businesses"""
+        return obj.founder.businesses.exclude(id=obj.id).exists()
 
     # def update(self, instance, validated_data):
     #     entered_by = validated_data.pop("entered_by")

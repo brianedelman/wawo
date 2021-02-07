@@ -14,6 +14,7 @@ import BusinessTabPanel from 'components/directory/detail/BusinessTabPanel';
 import BusinessEvent from 'components/directory/detail/BusinessEvent';
 import BusinessPromotion from 'components/directory/detail/BusinessPromotion';
 import BusinessTestimonial from 'components/directory/detail/BusinessTestimonial';
+import FoundedBusinesses from 'components/directory/detail/FoundedBusinesses';
 
 // SSR causes responsive to fail, so dynamic importing
 const SliderComponentNoSSR = dynamic(
@@ -27,36 +28,59 @@ const DirectoryDetailPage = ({ business }) => {
   const [tab, setTab] = useState(0);
 
   if (!business) return null;
-  const { founder, events, promotions, testimonials } = business;
+  const {
+    founder,
+    events,
+    promotions,
+    testimonials,
+    hasOtherBusinesses,
+  } = business;
   const secondaryTabs = [
-    ...(founder.displayFounderInformation && [
-      {
-        label: 'About the Founder',
-        content: [founder],
-        component: FounderAbout,
-      },
-    ]),
-    ...(events.length && [
-      {
-        label: 'Events',
-        content: events,
-        component: BusinessEvent,
-      },
-    ]),
-    ...(promotions.length && [
-      {
-        label: 'Current Promotions',
-        content: promotions,
-        component: BusinessPromotion,
-      },
-    ]),
-    ...(testimonials.length && [
-      {
-        label: 'Testimonials',
-        content: testimonials,
-        component: BusinessTestimonial,
-      },
-    ]),
+    ...(founder.displayFounderInformation
+      ? [
+          {
+            label: 'About the Founder',
+            content: [founder],
+            component: FounderAbout,
+          },
+        ]
+      : []),
+    ...(events.length
+      ? [
+          {
+            label: 'Events',
+            content: events,
+            component: BusinessEvent,
+          },
+        ]
+      : []),
+    ...(promotions.length
+      ? [
+          {
+            label: 'Current Promotions',
+            content: promotions,
+            component: BusinessPromotion,
+          },
+        ]
+      : []),
+    ...(testimonials.length
+      ? [
+          {
+            label: 'Testimonials',
+            content: testimonials,
+            component: BusinessTestimonial,
+          },
+        ]
+      : []),
+    ...(hasOtherBusinesses
+      ? [
+          {
+            label: 'Other Businesses',
+            content: hasOtherBusinesses,
+            component: FoundedBusinesses,
+          },
+        ]
+      : []),
   ];
   return (
     <>
@@ -74,19 +98,27 @@ const DirectoryDetailPage = ({ business }) => {
         <BusinessTabPanel currentTab={tab} index={0}>
           <BusinessAbout business={business} />
         </BusinessTabPanel>
-        {secondaryTabs.map((tabItem, itemIdx) => (
-          <BusinessTabPanel key={itemIdx} currentTab={tab} index={itemIdx + 1}>
-            <Typography variant="h3">{tabItem.label}</Typography>
-            <Grid container spacing={2}>
-              {tabItem.content.map(item => {
-                const TagName = tabItem.component;
-                return (
-                  <TagName key={item.id} content={item} business={business} />
-                );
-              })}
-            </Grid>
-          </BusinessTabPanel>
-        ))}
+        {secondaryTabs.map((tabItem, itemIdx) => {
+          const TagName = tabItem.component;
+          return (
+            <BusinessTabPanel
+              key={itemIdx}
+              currentTab={tab}
+              index={itemIdx + 1}
+            >
+              <Typography variant="h3">{tabItem.label}</Typography>
+              <Grid container spacing={2}>
+                {tabItem.content.length ? (
+                  tabItem.content.map(item => (
+                    <TagName key={item.id} content={item} business={business} />
+                  ))
+                ) : (
+                  <TagName content={tabItem.content} business={business} />
+                )}
+              </Grid>
+            </BusinessTabPanel>
+          );
+        })}
       </Container>
     </>
   );
