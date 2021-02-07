@@ -82,16 +82,6 @@ const AccountMenu = ({ linkClassName }) => {
               onClick={event =>
                 handleMenuCloseWithLink({
                   event,
-                  link: '/account/change-email',
-                })
-              }
-            >
-              Change Email
-            </MenuItem>
-            <MenuItem
-              onClick={event =>
-                handleMenuCloseWithLink({
-                  event,
                   callback: logoutButtonClick,
                 })
               }

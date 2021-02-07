@@ -1,28 +1,20 @@
 import { Form, Field, Formik } from 'formik';
 import { useSnackbar } from 'notistack';
 
-import { Typography, Button, Container, Grid, Avatar } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Typography, Button, Grid } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
-import AccountPageHeader from 'components/AccountPageHeader';
 import { changePass, ChangePassSchema } from 'models/user';
 import { withAuthRequired } from 'util/withAuth';
+import AccountWrapper from 'components/account/AccountWrapper';
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(4),
-  },
   grid: {
     marginBottom: theme.spacing(1),
   },
-  bottomSpace: {
-    marginBottom: theme.spacing(2),
+  formHeader: {
+    fontWeight: 'bold',
   },
 }));
 
@@ -53,15 +45,7 @@ const ChangePassword = () => {
       });
   };
   return (
-    <Container className={classes.paper} component="main" maxWidth="xs">
-      <AccountPageHeader>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-      </AccountPageHeader>
-      <Typography variant="h1" align="center" className={classes.bottomSpace}>
-        Change Password
-      </Typography>
+    <AccountWrapper title="Security and Privacy">
       <Formik
         initialValues={{
           currentPassword: '',
@@ -76,6 +60,9 @@ const ChangePassword = () => {
         {({ handleSubmit, isValid, dirty }) => (
           <Form onSubmit={handleSubmit}>
             <Grid container spacing={2} className={classes.grid}>
+              <Grid item xs={12}>
+                <Typography className={classes.formHeader}>Password</Typography>
+              </Grid>
               <Grid item xs={12} sm={12}>
                 <Field
                   fullWidth
@@ -109,10 +96,9 @@ const ChangePassword = () => {
               </Grid>
             </Grid>
             <Button
-              fullWidth
-              variant="outlined"
+              variant="contained"
+              color="primary"
               type="submit"
-              className={classes.bottomSpace}
               disabled={!isValid && dirty}
             >
               Update Password
@@ -120,7 +106,7 @@ const ChangePassword = () => {
           </Form>
         )}
       </Formik>
-    </Container>
+    </AccountWrapper>
   );
 };
 export default withAuthRequired(ChangePassword);
