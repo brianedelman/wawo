@@ -32,6 +32,30 @@ const useStyles = makeStyles(theme => ({
 const ChangeEmail = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
+
+  const handleFormSubmit = (values, actions) => {
+    changeEmail(values)
+      .then(response => {
+        enqueueSnackbar('Successfully changed Email!', {
+          variant: 'success',
+        });
+        return response;
+      })
+      .then(response => {
+        actions.setSubmitting(false);
+        return response;
+      })
+      .catch(error => {
+        actions.setSubmitting(false);
+        if (error.nonFieldErrors) {
+          enqueueSnackbar(error.nonFieldErrors, {
+            variant: 'error',
+          });
+        } else {
+          actions.setErrors(error);
+        }
+      });
+  };
   return (
     <Container className={classes.paper} component="main" maxWidth="xs">
       <AccountPageHeader>
@@ -39,8 +63,8 @@ const ChangeEmail = () => {
           <EmailIcon />
         </Avatar>
       </AccountPageHeader>
-      <Typography component="h1" variant="h5" className={classes.bottomSpace}>
-        Change your Email
+      <Typography variant="h1" align="center" className={classes.bottomSpace}>
+        Change Email
       </Typography>
       <Formik
         initialValues={{
@@ -51,73 +75,54 @@ const ChangeEmail = () => {
         className={classes.form}
         validateOnChange
         validationSchema={ChangeEmailSchema}
-        onSubmit={(values, actions) => {
-          changeEmail(values)
-            .then(response => {
-              enqueueSnackbar('Successfully changed Email!', {
-                variant: 'success',
-              });
-              return response;
-            })
-            .then(response => {
-              actions.setSubmitting(false);
-              return response;
-            })
-            .catch(error => {
-              actions.setSubmitting(false);
-              if (error.nonFieldErrors) {
-                enqueueSnackbar(error.nonFieldErrors, {
-                  variant: 'error',
-                });
-              } else {
-                actions.setErrors(error);
-              }
-            });
-        }}
+        onSubmit={handleFormSubmit}
       >
-        <Form>
-          <Grid container spacing={2} className={classes.grid}>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                component={TextField}
-                name="currentPassword"
-                autoComplete="current-password"
-                label="Current Password"
-                type="password"
-              />
-            </Grid>
+        {({ handleSubmit, isValid, dirty }) => (
+          <Form onSubmit={handleSubmit}>
+            <Grid container spacing={2} className={classes.grid}>
+              <Grid item xs={12}>
+                <Field
+                  fullWidth
+                  component={TextField}
+                  name="currentPassword"
+                  autoComplete="current-password"
+                  label="Current Password"
+                  type="password"
+                />
+              </Grid>
 
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="newEmail"
-                component={TextField}
-                autoComplete="email"
-                type="email"
-                label="New Email"
-              />
+              <Grid item xs={12}>
+                <Field
+                  fullWidth
+                  name="newEmail"
+                  component={TextField}
+                  autoComplete="email"
+                  type="email"
+                  label="New Email"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Field
+                  fullWidth
+                  name="reNewEmail"
+                  component={TextField}
+                  autoComplete="email"
+                  type="email"
+                  label="Repeat New Email"
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Field
-                fullWidth
-                name="reNewEmail"
-                component={TextField}
-                autoComplete="email"
-                type="email"
-                label="Repeat New Email"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            fullWidth
-            variant="outlined"
-            type="submit"
-            className={classes.bottomSpace}
-          >
-            Update Email
-          </Button>
-        </Form>
+            <Button
+              fullWidth
+              variant="outlined"
+              type="submit"
+              className={classes.bottomSpace}
+              disabled={!isValid && dirty}
+            >
+              Update Email
+            </Button>
+          </Form>
+        )}
       </Formik>
     </Container>
   );

@@ -12,12 +12,10 @@ describe('ResetPassSchema', () => {});
 describe('ProfileSchema', () => {});
 describe('ChangeEmailSchema', () => {});
 describe('ChangePassSchema', () => {});
-describe('DeleteUserSchema', () => {});
 
 //good data, poor data, 500 error from server
 describe('registerUser', () => {});
 describe('updateUser', () => {});
-describe('deleteUser', () => {});
 describe('forgotPass', () => {});
 describe('resetPass', () => {});
 describe('changePass', () => {});

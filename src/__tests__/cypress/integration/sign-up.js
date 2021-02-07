@@ -11,23 +11,13 @@ describe('Singup page', () => {
   });
   it('a user can signup with the form', () => {
     cy.visit('/signup');
-    cy.get('[data-cy=first-name]')
-      .click()
-      .type('Johnny');
-    cy.get('[data-cy=last-name]')
-      .click()
-      .type('Rico');
+    cy.get('[data-cy=first-name]').click().type('Johnny');
+    cy.get('[data-cy=last-name]').click().type('Rico');
 
-    cy.get('[data-cy=email]')
-      .click()
-      .type('Johnny@fed.net');
+    cy.get('[data-cy=email]').click().type('Johnny@fed.net');
 
-    cy.get('[data-cy=password]')
-      .click()
-      .type('asdfasdf');
-    cy.get('[data-cy=re-password]')
-      .click()
-      .type('asdfasdf');
+    cy.get('[data-cy=password]').click().type('asdfasdf');
+    cy.get('[data-cy=re-password]').click().type('asdfasdf');
     cy.get('[data-cy=tos]').click();
     cy.get('[data-cy=submit-signup]').click();
 
@@ -39,27 +29,20 @@ describe('Singup page', () => {
   });
   it('a user gets a real error message when using a duplicate email', () => {
     cy.visit('/signup');
-    cy.get('[data-cy=first-name]')
-      .click()
-      .type('Johnny');
-    cy.get('[data-cy=last-name]')
-      .click()
-      .type('Rico');
+    cy.get('[data-cy=first-name]').click().type('Johnny');
+    cy.get('[data-cy=last-name]').click().type('Rico');
 
-    cy.get('[data-cy=email]')
-      .click()
-      .type('Johnny@fed.net');
+    cy.get('[data-cy=email]').click().type('Johnny@fed.net');
 
-    cy.get('[data-cy=password]')
-      .click()
-      .type('a bad password');
-    cy.get('[data-cy=re-password]')
-      .click()
-      .type('a bad password');
+    cy.get('[data-cy=password]').click().type('a bad password');
+    cy.get('[data-cy=re-password]').click().type('a bad password');
     cy.get('[data-cy=tos]').click();
     cy.get('[data-cy=submit-signup]').click();
 
-    cy.get('.Mui-error').should('contain', 'A user is already registered with that email');
+    cy.get('.Mui-error').should(
+      'contain',
+      'A user is already registered with that email'
+    );
   });
 
   it("a user can't signup without the tos checked", () => {});

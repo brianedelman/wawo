@@ -92,16 +92,6 @@ const AccountMenu = ({ linkClassName }) => {
               onClick={event =>
                 handleMenuCloseWithLink({
                   event,
-                  link: '/account/delete-account',
-                })
-              }
-            >
-              Delete Account
-            </MenuItem>
-            <MenuItem
-              onClick={event =>
-                handleMenuCloseWithLink({
-                  event,
                   callback: logoutButtonClick,
                 })
               }

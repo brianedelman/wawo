@@ -30,7 +30,7 @@ const name = Yup.string()
   .max(50, TOO_LONG)
   .required(REQUIRED);
 
-const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
+const password = Yup.string().required(REQUIRED).min(8, TOO_SHORT);
 
 const email = Yup.string().email(EMAIL).required(REQUIRED);
 
@@ -51,7 +51,9 @@ export const SignupSchema = Yup.object().shape({
   ...UserDetailSchema,
   ...SetPassSchema,
   email,
-  tos: Yup.boolean().required(REQUIRED).oneOf([true], 'Field must be checked'),
+  tos: Yup.boolean()
+    .required(REQUIRED)
+    .oneOf([true], 'Terms of Service must be accepted'),
 });
 
 export const LoginSchema = Yup.object().shape({
@@ -72,7 +74,7 @@ export const ResetPassSchema = Yup.object().shape({
 });
 
 export const ChangePassSchema = Yup.object().shape({
-  current_password: password,
+  currentPassword: password,
   newPassword: password,
   reNewPassword: password.equalTo(
     'newPassword',
@@ -83,9 +85,6 @@ export const ChangePassSchema = Yup.object().shape({
 export const ChangeEmailSchema = Yup.object().shape({
   newEmail: email,
   reNewEmail: email.equalTo('newEmail', 'The Two Emails must match'),
-  current_password: password,
-});
-export const DeleteUserSchema = Yup.object().shape({
   currentPassword: password,
 });
 
@@ -97,14 +96,6 @@ export function registerUser(userData) {
 
 export function updateUser(userData) {
   return axios.put(USER_ME, userData);
-}
-
-export function deleteUser(data) {
-  const url = '/auth/users/me/';
-  return axios.delete(url, { data }).then(() => {
-    window.dispatchEvent(new Event('logout'));
-    window.localStorage.setItem('logout', Date.now());
-  });
 }
 
 export function logIn(userData) {
