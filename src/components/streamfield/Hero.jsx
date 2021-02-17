@@ -48,7 +48,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Hero = ({ stream }) => {
-  console.log(stream);
   const classes = useStyles(stream);
 
   const {

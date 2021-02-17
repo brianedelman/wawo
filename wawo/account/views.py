@@ -6,7 +6,7 @@ from djoser.views import (
     UserViewSet as DjoserUserViewSet,
 )
 
-from .serializers import UserCreateSerializer
+from .serializers import BusinessUserSerializer, UserCreateSerializer
 
 
 class TokenCreateView(DjoserTokenCreateView):
@@ -35,3 +35,14 @@ class UserCreateView(CreateAPIView):
             return view._action(login_serializer)  # NOQA
         register_serializer.is_valid(raise_exception=True)
         return False  # make pylint happy
+
+
+class UserViewSet(DjoserUserViewSet):
+    """Overriding djoser default view"""
+
+    def get_serializer_class(self):
+        serializer_class = super().get_serializer_class()
+        if self.action == "me" and self.request.user.is_business_user:
+            serializer_class = BusinessUserSerializer
+
+        return serializer_class

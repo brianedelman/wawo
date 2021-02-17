@@ -115,11 +115,15 @@ class User(PolymorphicModel, TimeStampedModel, AbstractBaseUser, PermissionsMixi
 
     @cached_property
     def display_first_name(self):
-        return self.founder_first_name if self.founder_first_name else self.first_name
+        return self.first_name
 
     @cached_property
     def display_last_name(self):
-        return self.founder_last_name if self.founder_last_name else self.last_name
+        return self.last_name
+
+    @cached_property
+    def is_business_user(self):
+        return False
 
 
 class BusinessUser(User):
@@ -129,3 +133,16 @@ class BusinessUser(User):
     founder_title = models.CharField(max_length=30, blank=True, null=True)
 
     display_founder_information = models.BooleanField(default=True)
+
+    @cached_property
+    def is_business_user(self):
+        """Duck type is a business user or not"""
+        return True
+
+    @cached_property
+    def display_first_name(self):
+        return self.founder_first_name if self.founder_first_name else self.first_name
+
+    @cached_property
+    def display_last_name(self):
+        return self.founder_last_name if self.founder_last_name else self.last_name

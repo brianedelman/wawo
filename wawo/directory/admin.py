@@ -56,6 +56,7 @@ class BusinessAdmin(ImportExportMixin, admin.ModelAdmin):
         "state",
         "postal_code",
         "country",
+        "store_hours",
     )
 
     autocomplete_fields = ("categories", "founder")

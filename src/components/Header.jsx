@@ -31,6 +31,11 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
   },
+  mainMenu: {
+    '& .MuiButtonBase-root:last-child .MuiIconButton-root': {
+      padding: 0,
+    },
+  },
   menuButton: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -183,7 +188,11 @@ export default function Header() {
                   </Menu>
                 </Hidden>
                 <Hidden smDown implementation="css">
-                  <Box display="flex" justifyContent="flex-end">
+                  <Box
+                    display="flex"
+                    justifyContent="flex-end"
+                    className={classes.mainMenu}
+                  >
                     {menu.map((item, index) => (
                       <MenuItem key={index}>{item}</MenuItem>
                     ))}

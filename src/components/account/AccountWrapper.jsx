@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import { Grid, Box, Container, Typography } from '@material-ui/core';
@@ -13,12 +14,15 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(4),
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
+  },
+  contained: {
     maxWidth: '480px',
   },
 }));
 
-const AccountWrapper = ({ title, children }) => {
+const AccountWrapper = ({ title, contained, children }) => {
   const classes = useStyles();
+  console.log(contained);
   return (
     <Container className={classes.paper} component="main" maxWidth="lg">
       <Typography variant="h1">{title}</Typography>
@@ -29,7 +33,11 @@ const AccountWrapper = ({ title, children }) => {
         </Grid>
 
         <Grid item xs={12} md={9}>
-          <Box className={classes.wrapper}>{children}</Box>
+          <Box
+            className={clsx(classes.wrapper, contained && classes.contained)}
+          >
+            {children}
+          </Box>
         </Grid>
       </Grid>
     </Container>
@@ -39,6 +47,11 @@ const AccountWrapper = ({ title, children }) => {
 AccountWrapper.propTypes = {
   title: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  contained: PropTypes.bool,
+};
+
+AccountWrapper.defaultProps = {
+  contained: true,
 };
 
 export default AccountWrapper;

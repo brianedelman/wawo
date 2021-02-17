@@ -1,6 +1,12 @@
 import PropTypes from 'prop-types';
 import { useField, Field, useFormikContext } from 'formik';
-import { FormControl, TextField, CircularProgress } from '@material-ui/core';
+import {
+  FormControl,
+  TextField,
+  CircularProgress,
+  FormHelperText,
+} from '@material-ui/core';
+
 import React, { useEffect, useState } from 'react';
 import { Autocomplete } from 'formik-material-ui-lab';
 
@@ -14,10 +20,13 @@ const AutoCompleteField = ({
   ...props
 }) => {
   const [field, meta] = useField(props);
-  const { name, errors } = props;
+  const { name, errors, helperText } = props;
   const isError = Boolean(
     (meta.error && meta.touched) || meta.initialError || errors[name]
   );
+  // NOTE: deleting this because it gets ...rest spread in and react gets mad
+  // eslint-disable-next-line
+  delete props.helperText;
 
   const { setFieldValue, setTouched } = useFormikContext();
 
@@ -82,7 +91,6 @@ const AutoCompleteField = ({
             {...params}
             fullWidth={fullWidth}
             error={isError}
-            helperText={errors.name}
             label={label}
             variant="filled"
             InputProps={{
@@ -100,6 +108,13 @@ const AutoCompleteField = ({
         )}
         {...props}
       />
+      {(isError || helperText) && (
+        <FormHelperText>
+          {isError
+            ? meta.error || meta.initialError || errors[name]
+            : helperText}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };
@@ -113,6 +128,7 @@ AutoCompleteField.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   callback: PropTypes.func.isRequired,
   errors: PropTypes.object,
+  helperText: PropTypes.string,
 };
 
 AutoCompleteField.defaultProps = {
@@ -120,6 +136,7 @@ AutoCompleteField.defaultProps = {
   formControlClassName: '',
   errors: {},
   value: null,
+  helperText: '',
 };
 
 export default AutoCompleteField;

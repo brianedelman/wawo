@@ -125,7 +125,9 @@ function BusinessCard({ business }) {
               mb={2.5}
             >
               <Typography variant="body2">{business.name}</Typography>
-              <Typography variant="overline">{business.pricePoint}</Typography>
+              <Typography variant="overline">
+                {business.pricePointDisplay}
+              </Typography>
             </Box>
             <Typography variant="body1">{business.shortDescription}</Typography>
           </Box>

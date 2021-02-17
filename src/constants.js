@@ -39,6 +39,7 @@ const URLS = {
     directory: `${DIRECTORY_BASE}businesses/`,
     directorySlugs: `${DIRECTORY_BASE}business-slugs/`,
     categories: `${DIRECTORY_BASE}categories/`,
+    userMe: '/auth/users/me/',
   },
   pagesFind: '/api/v2/pages/find/?html_path=',
 };
@@ -79,10 +80,13 @@ const BUSINESS_PROPS = shape({
   twitter: string,
   businessUrl: string.isRequired,
   categories: arrayOf(BUSINESS_CATEGORY_PROPS),
+  businessTypeDisplay: string.isRequired,
   businessType: string.isRequired,
-  pricePoint: string,
+  pricePoint: number,
+  pricePointDisplay: string,
   mainImage: string.isRequired,
   images: arrayOf(BUSINESS_IMAGE_PROPS),
+  locationTypeDisplay: string.isRequired,
   locationType: string.isRequired,
   location: string,
 });

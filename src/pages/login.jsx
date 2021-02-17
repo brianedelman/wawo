@@ -68,7 +68,7 @@ const LogInPage = () => {
         Log In
       </Typography>
       <Formik
-        initialValues={{ email: '', password: '', remember_me: true }}
+        initialValues={{ email: '', password: '', rememberMe: true }}
         validateOnChange
         validationSchema={LoginSchema}
         validateOnBlur={false}
@@ -99,7 +99,7 @@ const LogInPage = () => {
                   label="Remember me"
                   control={
                     <Field
-                      name="remember_me"
+                      name="rememberMe"
                       type="checkbox"
                       component={Checkbox}
                     />

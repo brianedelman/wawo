@@ -138,6 +138,11 @@ const theme = createMuiTheme({
         color: '#616161',
       },
     },
+    MuiInput: {
+      underline: {
+        marginBottom: 0,
+      },
+    },
     MuiFilledInput: {
       root: {
         backgroundColor: '#fff',

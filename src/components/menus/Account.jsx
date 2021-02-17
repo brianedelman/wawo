@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import {
   usePopupState,
-  bindTrigger,
+  bindHover,
   bindMenu,
 } from 'material-ui-popup-state/hooks';
 import { useRef } from 'react';
-import { IconButton, Menu, MenuItem } from '@material-ui/core';
+import { Avatar, IconButton, Menu, MenuItem } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Router from 'next/router';
 
 import Link from 'components/router/Link';
@@ -53,11 +54,31 @@ const AccountMenu = ({ linkClassName }) => {
             aria-controls="menu-appbar"
             aria-haspopup="true"
             color="inherit"
-            {...bindTrigger(profileMenuState)}
+            {...bindHover(profileMenuState)}
           >
-            <AccountCircle />
+            {user.profileImage ? (
+              <Avatar
+                alt={`${user.firstName} ${user.lastName}`}
+                src={user.profileImage}
+              />
+            ) : (
+              <AccountCircle />
+            )}
+            <ArrowDropDownIcon color="primary" />
           </IconButton>
-          <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
+          <Menu
+            id="menu-appbar"
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            {...bindMenu(profileMenuState)}
+          >
             <MenuItem
               onClick={event =>
                 handleMenuCloseWithLink({
@@ -76,7 +97,7 @@ const AccountMenu = ({ linkClassName }) => {
                 })
               }
             >
-              Change Password
+              Security & Privacy
             </MenuItem>
             <MenuItem
               onClick={event =>

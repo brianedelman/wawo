@@ -35,12 +35,23 @@ function Link({
   variant,
   naked,
   componentType = 'link',
+  matchParent = false,
   ...other
 }) {
   const router = useRouter();
   const pathname = typeof href === 'string' ? href : href.pathname;
+  let parentMatch = null;
+  // TODO clean up
+  if (matchParent) {
+    const pathnameArray = pathname.split('/');
+    pathnameArray.pop();
+    const routerArray = router.asPath.split('/');
+    routerArray.pop();
+    parentMatch = routerArray.join('/') === pathnameArray.join('/');
+  }
   const className = clsx(classNameProps, {
-    [activeClassName]: router?.pathname === pathname && activeClassName,
+    [activeClassName]:
+      router?.asPath === pathname || (parentMatch && activeClassName),
   });
 
   if (naked) {
@@ -104,6 +115,7 @@ Link.propTypes = {
   prefetch: PropTypes.bool,
   variant: PropTypes.string,
   componentType: PropTypes.oneOf(['button', 'link']),
+  matchParent: PropTypes.bool,
 };
 
 export default React.forwardRef((props, ref) => (

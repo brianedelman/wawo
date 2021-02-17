@@ -88,7 +88,9 @@ function BusinessInfo({ business }) {
                 <Typography variant="body1" color="textSecondary">
                   Price Point:
                 </Typography>
-                <Typography variant="body2">{business.pricePoint}</Typography>
+                <Typography variant="body2">
+                  {business.pricePointDisplay}
+                </Typography>
               </Box>
             </Box>
             <Box>

@@ -68,15 +68,15 @@ class CarouselImageSerializer(serializers.ModelSerializer):
 
 class BusinessSerializer(serializers.ModelSerializer):
     founder = BusinessUserSerializer()
-    business_type = serializers.SerializerMethodField()
-    price_point = serializers.SerializerMethodField()
+    business_type_display = serializers.SerializerMethodField()
+    price_point_display = serializers.SerializerMethodField()
     carousel_images = CarouselImageSerializer(many=True)
     images = BusinessImageSerializer(many=True)
     events = BusinessEventSerializer(many=True)
     categories = BusinessCategorySerializer(many=True)
     testimonials = BusinessTestimonialSerializer(many=True)
     promotions = BusinessPromotionSerializer(many=True)
-    location_type = serializers.SerializerMethodField()
+    location_type_display = serializers.SerializerMethodField()
     location = serializers.SerializerMethodField()
     has_other_businesses = serializers.SerializerMethodField()
 
@@ -97,8 +97,10 @@ class BusinessSerializer(serializers.ModelSerializer):
             "twitter",
             "business_url",
             "categories",
+            "business_type_display",
             "business_type",
             "price_point",
+            "price_point_display",
             "main_image",
             "hero_image",
             "images",
@@ -106,27 +108,29 @@ class BusinessSerializer(serializers.ModelSerializer):
             "events",
             "testimonials",
             "promotions",
+            "location_type_display",
             "location_type",
             "address1",
             "address2",
             "city",
             "state",
             "country",
+            "store_hours",
             "location",
             "postal_code",
             "has_other_businesses",
         ]
 
-    def get_location_type(self, obj):
+    def get_location_type_display(self, obj):
         return obj.get_location_type_display()
 
     def get_location(self, obj):
         return obj.location
 
-    def get_business_type(self, obj):
+    def get_business_type_display(self, obj):
         return obj.get_business_type_display()
 
-    def get_price_point(self, obj):
+    def get_price_point_display(self, obj):
         return obj.get_price_point_display()
 
     def get_has_other_businesses(self, obj):

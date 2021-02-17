@@ -5,9 +5,7 @@ import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
 import axios from 'util/axios';
-import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
-
-export const USER_ME = '/auth/users/me/';
+import { URLS, EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
 
 function equalTo(yupRef, msg) {
   const ref = Yup.ref(yupRef);
@@ -27,7 +25,7 @@ function equalTo(yupRef, msg) {
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 const name = Yup.string()
   .min(2, TOO_SHORT)
-  .max(50, TOO_LONG)
+  .max(30, TOO_LONG)
   .required(REQUIRED);
 
 const password = Yup.string().required(REQUIRED).min(8, TOO_SHORT);
@@ -88,6 +86,14 @@ export const ChangeEmailSchema = Yup.object().shape({
   currentPassword: password,
 });
 
+export const FounderSchema = Yup.object().shape({
+  founderFirstName: name,
+  founderLastName: name,
+  founderTitle: name,
+  founderAbout: Yup.string(),
+  displayFounderInformation: Yup.boolean().required(REQUIRED),
+});
+
 export function registerUser(userData) {
   const url = '/auth/register/';
 
@@ -95,7 +101,10 @@ export function registerUser(userData) {
 }
 
 export function updateUser(userData) {
-  return axios.put(USER_ME, userData);
+  return axios.put(URLS.api.userMe, userData);
+}
+export function patchUser(userData) {
+  return axios.patch(URLS.api.userMe, userData);
 }
 
 export function logIn(userData) {
@@ -181,7 +190,7 @@ export function useCurrentUserSWR({ initialUser }) {
   // really we shouldn't do that - we know if the revalidation attempt will be successful or not based on isauthenticated
   // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one to check to test.
   const { data, error, isValidating, mutate } = useSWR(
-    USER_ME,
+    URLS.api.userMe,
     query =>
       axios({
         method: 'get',

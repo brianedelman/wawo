@@ -230,7 +230,10 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    "SERIALIZERS": {"token_create": "wawo.account.serializers.TokenCreateSerializer",},
+    "SERIALIZERS": {
+        "token_create": "wawo.account.serializers.TokenCreateSerializer",
+        "current_user": "wawo.account.serializers.UserSerializer",
+    },
     "USER_CREATE_PASSWORD_RETYPE": True,
     "CREATE_SESSION_ON_LOGIN": True,
     "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url
