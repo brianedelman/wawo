@@ -4,7 +4,6 @@ import { Form, Field, Formik } from 'formik';
 
 import {
   Typography,
-  Button,
   Grid,
   FormControl,
   InputLabel,
@@ -38,7 +37,6 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
     handleBusinessFormSubmit(values, actions);
   };
 
-  console.log(business);
   return (
     <Formik
       initialValues={{
@@ -49,7 +47,7 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
       enableReinitialize
       onSubmit={handleFormSubmit}
     >
-      {({ handleSubmit, isValid, dirty }) => (
+      {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Grid item xs={12}>
             <Typography paragraph className={classes.formHeader}>
@@ -79,7 +77,7 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
                   variant="filled"
                   /* onChange={handleChange('pricePoint')} */
                 >
-                  <MenuItem value={null}>Price Point: All</MenuItem>
+                  <MenuItem value={null}>N/A</MenuItem>
                   <MenuItem value={1}>$</MenuItem>
                   <MenuItem value={2}>$$</MenuItem>
                   <MenuItem value={3}>$$$</MenuItem>
@@ -88,16 +86,16 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
               </FormControl>
             </Grid>
           </Grid>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            size="large"
-            className={classes.bottomSpace}
-            disabled={!isValid && dirty}
-          >
-            Save
-          </Button>
+          {/* <Button */}
+          {/*   color="primary" */}
+          {/*   variant="contained" */}
+          {/*   type="submit" */}
+          {/*   size="large" */}
+          {/*   className={classes.bottomSpace} */}
+          {/*   disabled={!isValid && dirty} */}
+          {/* > */}
+          {/*   Save */}
+          {/* </Button> */}
         </Form>
       )}
     </Formik>

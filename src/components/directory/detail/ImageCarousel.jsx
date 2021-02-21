@@ -63,19 +63,21 @@ function PrevArrow(props) {
 
 function ImageCarousel({ images }) {
   const classes = useStyles();
+
+  const hasMultiImages = images.length > 1;
   const settings = {
     speed: 500,
 
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
+    prevArrow: hasMultiImages ? <PrevArrow /> : null,
+    nextArrow: hasMultiImages ? <NextArrow /> : null,
     responsive: [
       {
         breakpoint: 1050,
         settings: {
-          dots: true,
+          dots: hasMultiImages,
           nextArrow: null,
           prevArrow: null,
         },

@@ -2,7 +2,7 @@ import { PROPTYPES } from 'constants.js';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import AutoCompleteField from 'components/forms/fields/AutoCompleteField';
 import { makeStyles } from '@material-ui/core/styles';
 import { getCategories } from 'models/forms';
@@ -42,7 +42,7 @@ const CategoriesForm = ({ business, handleBusinessFormSubmit }) => {
       enableReinitialize
       onSubmit={handleFormSubmit}
     >
-      {({ handleSubmit, isValid, dirty }) => (
+      {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Grid item xs={12}>
             <Typography paragraph className={classes.formHeader}>
@@ -65,16 +65,16 @@ const CategoriesForm = ({ business, handleBusinessFormSubmit }) => {
               />
             </Grid>
           </Grid>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            size="large"
-            className={classes.bottomSpace}
-            disabled={!isValid && dirty}
-          >
-            Save
-          </Button>
+          {/* <Button */}
+          {/*   color="primary" */}
+          {/*   variant="contained" */}
+          {/*   type="submit" */}
+          {/*   size="large" */}
+          {/*   className={classes.bottomSpace} */}
+          {/*   disabled={!isValid && dirty} */}
+          {/* > */}
+          {/*   Save */}
+          {/* </Button> */}
         </Form>
       )}
     </Formik>

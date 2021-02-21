@@ -3,13 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
-import {
-  Grid,
-  Button,
-  Box,
-  FormControlLabel,
-  Typography,
-} from '@material-ui/core';
+import { Grid, Box, FormControlLabel, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BusinessInfoSchema } from 'models/business';
@@ -58,7 +52,7 @@ const BusinessInfoForm = ({ business, handleBusinessFormSubmit }) => {
       validationSchema={BusinessInfoSchema}
       onSubmit={handleFormSubmit}
     >
-      {({ values, handleSubmit, isValid, dirty }) => (
+      {({ values, handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Grid container spacing={2} className={classes.grid}>
             <Grid item xs={12}>
@@ -247,16 +241,16 @@ const BusinessInfoForm = ({ business, handleBusinessFormSubmit }) => {
               </>
             )}
           </Grid>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            size="large"
-            className={classes.button}
-            disabled={!isValid && dirty}
-          >
-            Save
-          </Button>
+          {/* <Button */}
+          {/*   color="primary" */}
+          {/*   variant="contained" */}
+          {/*   type="submit" */}
+          {/*   size="large" */}
+          {/*   className={classes.button} */}
+          {/*   disabled={!isValid && dirty} */}
+          {/* > */}
+          {/*   Save */}
+          {/* </Button> */}
         </Form>
       )}
     </Formik>

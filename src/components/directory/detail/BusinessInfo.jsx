@@ -82,7 +82,9 @@ function BusinessInfo({ business }) {
                 <Typography variant="body1" color="textSecondary">
                   Business Type:
                 </Typography>
-                <Typography variant="body2">{business.businessType}</Typography>
+                <Typography variant="body2">
+                  {business.businessTypeDisplay}
+                </Typography>
               </Box>
               <Box flex={1} display="flex" flexDirection="column" mb={2}>
                 <Typography variant="body1" color="textSecondary">
@@ -99,7 +101,7 @@ function BusinessInfo({ business }) {
                   Categories:
                 </Typography>
                 <CategoryShortList
-                  businessType={business.businessType}
+                  businessType={business.businessTypeDisplay}
                   categories={business.categories}
                   className={classes.categoryList}
                 />

@@ -69,6 +69,21 @@ const BUSINESS_IMAGE_PROPS = shape({
   image: string.isRequired,
 });
 
+const BUSINESS_EVENT_PROPS = shape({
+  description: string.isRequired,
+  image: string,
+  link: string,
+  location: string.isRequired,
+  name: string.isRequired,
+  when: string.isRequired,
+});
+
+const BUSINESS_TESTIMONIAL_PROPS = shape({
+  quote: string.isRequired,
+  personName: string.isRequired,
+  personTitle: string.isRequired,
+});
+
 const BUSINESS_PROPS = shape({
   id: number.isRequired,
   founder: BUSINESS_USER_PROPS.isRequired,
@@ -89,15 +104,26 @@ const BUSINESS_PROPS = shape({
   locationTypeDisplay: string.isRequired,
   locationType: string.isRequired,
   location: string,
+  events: arrayOf(BUSINESS_EVENT_PROPS),
+  testimonials: arrayOf(BUSINESS_TESTIMONIAL_PROPS),
 });
 
 const PROPTYPES = {
   business: BUSINESS_PROPS,
   founder: BUSINESS_USER_PROPS,
   category: BUSINESS_CATEGORY_PROPS,
+  event: BUSINESS_EVENT_PROPS,
+  testimonial: BUSINESS_TESTIMONIAL_PROPS,
+};
+
+const BUSINESS_TYPES = {
+  product: 'PDCT',
+  service: 'SRVC',
+  nonProfit: 'NPFT',
 };
 
 export {
+  BUSINESS_TYPES,
   TOO_SHORT,
   TOO_LONG,
   REQUIRED,

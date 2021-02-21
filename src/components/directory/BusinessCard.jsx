@@ -1,4 +1,4 @@
-import { PROPTYPES } from 'constants.js';
+import { PROPTYPES, BUSINESS_TYPES } from 'constants.js';
 import {
   Avatar,
   Box,
@@ -62,6 +62,20 @@ function BusinessCard({ business }) {
   const { founder, categories } = business;
 
   const founderName = `${founder.displayFirstName} ${founder.displayLastName}`;
+
+  const renderAvatar = () => (
+    <>
+      {founder.profileImage ? (
+        <Avatar
+          className={classes.avatar}
+          alt={founderName}
+          src={founder.profileImage}
+        />
+      ) : (
+        <Box mb={2} />
+      )}
+    </>
+  );
   return (
     <Card className={classes.businessCard}>
       <Box
@@ -77,7 +91,7 @@ function BusinessCard({ business }) {
             title={`${business.name} main image`}
           />
           <Box flex={1} display="flex" flexDirection="column" mx={2}>
-            {founder.displayFounderInformation ? (
+            {founder.displayFounderInformation && founder.profileImage ? (
               <Tooltip
                 arrow
                 title={
@@ -104,18 +118,10 @@ function BusinessCard({ business }) {
                 }
                 placement="right"
               >
-                <Avatar
-                  className={classes.avatar}
-                  alt={founderName}
-                  src={founder.profileImage}
-                />
+                {renderAvatar()}
               </Tooltip>
             ) : (
-              <Avatar
-                className={classes.avatar}
-                alt={founderName}
-                src={founder.profileImage}
-              />
+              <>{renderAvatar()}</>
             )}
 
             <Box
@@ -133,11 +139,15 @@ function BusinessCard({ business }) {
           </Box>
         </Box>
         <Box px={2}>
-          <CategoryShortList
-            businessType={business.businessType}
-            categories={categories}
-            className={classes.categories}
-          />
+          {categories.length > 0 ? (
+            <CategoryShortList
+              businessType={business.businessType}
+              categories={categories}
+              className={classes.categories}
+            />
+          ) : (
+            <Box mb={2} />
+          )}
           <Box display="flex" justifyContent="space-between">
             <Link
               href={`/directory/${business.slug}/`}
@@ -145,7 +155,7 @@ function BusinessCard({ business }) {
               className={classes.button}
               variant="outlined"
             >
-              Learn
+              Learn More
             </Link>
             <Link
               href={business.businessUrl}
@@ -155,7 +165,10 @@ function BusinessCard({ business }) {
               color="secondary"
               target="_blank"
             >
-              Shop
+              {business.businessType === BUSINESS_TYPES.product && 'Shop'}
+              {business.businessType === BUSINESS_TYPES.service &&
+                'See Services'}
+              {business.businessType === BUSINESS_TYPES.nonProfit && 'Donate'}
             </Link>
           </Box>
         </Box>

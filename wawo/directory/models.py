@@ -87,7 +87,6 @@ class Business(LocationBase, TimeStampedModel):
     price_point = models.IntegerField(choices=PricePoint.choices, null=True, blank=True)
 
     main_image = models.ImageField(upload_to=file_url("businesses"))
-    hero_image = models.ImageField(upload_to=file_url("businesses"), null=True)
 
     class Meta:
         verbose_name_plural = "Businesses"

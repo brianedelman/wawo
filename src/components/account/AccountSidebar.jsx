@@ -31,6 +31,8 @@ const AccountSidebar = () => {
     setOpen(!open);
   };
 
+  const firstBizSlug = user.businesses[0].slug;
+
   return (
     <Box height="100%">
       <Paper elevation={0}>
@@ -76,7 +78,7 @@ const AccountSidebar = () => {
                     />
                   </SidebarListItem>
                   <SidebarListItem
-                    link={`/account/business-info/${user.businesses[0].slug}`}
+                    link={`/account/business-info/${firstBizSlug}`}
                     isNested
                   >
                     <ListItemText
@@ -87,7 +89,7 @@ const AccountSidebar = () => {
                     />
                   </SidebarListItem>
                   <SidebarListItem
-                    link={`/account/business-social/${user.businesses[0].slug}`}
+                    link={`/account/business-social/${firstBizSlug}`}
                     isNested
                   >
                     <ListItemText
@@ -98,7 +100,7 @@ const AccountSidebar = () => {
                     />
                   </SidebarListItem>
                   <SidebarListItem
-                    link={`/account/business-price-point/${user.businesses[0].slug}`}
+                    link={`/account/business-price-point/${firstBizSlug}`}
                     isNested
                   >
                     <ListItemText
@@ -109,7 +111,7 @@ const AccountSidebar = () => {
                     />
                   </SidebarListItem>
                   <SidebarListItem
-                    link={`/account/business-categories/${user.businesses[0].slug}`}
+                    link={`/account/business-categories/${firstBizSlug}`}
                     isNested
                   >
                     <ListItemText
@@ -120,7 +122,7 @@ const AccountSidebar = () => {
                     />
                   </SidebarListItem>
                   <SidebarListItem
-                    link={`/account/business-photos/${user.businesses[0].slug}`}
+                    link={`/account/business-photos/${firstBizSlug}`}
                     isNested
                   >
                     <ListItemText
@@ -128,6 +130,39 @@ const AccountSidebar = () => {
                         className: classes.text,
                       }}
                       primary="Photos"
+                    />
+                  </SidebarListItem>
+                  <SidebarListItem
+                    link={`/account/business-events/${firstBizSlug}`}
+                    isNested
+                  >
+                    <ListItemText
+                      primaryTypographyProps={{
+                        className: classes.text,
+                      }}
+                      primary="Events"
+                    />
+                  </SidebarListItem>
+                  <SidebarListItem
+                    link={`/account/business-testimonials/${firstBizSlug}`}
+                    isNested
+                  >
+                    <ListItemText
+                      primaryTypographyProps={{
+                        className: classes.text,
+                      }}
+                      primary="Testimonials"
+                    />
+                  </SidebarListItem>
+                  <SidebarListItem
+                    link={`/account/business-promotions/${firstBizSlug}`}
+                    isNested
+                  >
+                    <ListItemText
+                      primaryTypographyProps={{
+                        className: classes.text,
+                      }}
+                      primary="Promotions"
                     />
                   </SidebarListItem>
                 </List>

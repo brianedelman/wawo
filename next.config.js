@@ -36,7 +36,15 @@ module.exports = withSourceMaps({
     SERVER_BASE_URL,
     AWS_S3_CUSTOM_DOMAIN,
   },
-
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/directory',
+        permanent: false,
+      },
+    ];
+  },
   // eslint-disable-next-line no-unused-vars
   webpack(config, { isServer, dev, buildId }) {
     if (!dev) {

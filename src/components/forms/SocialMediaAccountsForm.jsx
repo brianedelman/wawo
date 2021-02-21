@@ -2,7 +2,7 @@ import { PROPTYPES } from 'constants.js';
 import PropTypes from 'prop-types';
 import { Form, Field, Formik } from 'formik';
 
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -41,7 +41,7 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
       enableReinitialize
       onSubmit={handleFormSubmit}
     >
-      {({ handleSubmit, isValid, dirty }) => (
+      {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <Grid item xs={12}>
             <Typography className={classes.formHeader}>
@@ -86,16 +86,16 @@ const SocialMediaAccountsForm = ({ business, handleBusinessFormSubmit }) => {
               />
             </Grid>
           </Grid>
-          <Button
-            color="primary"
-            variant="contained"
-            type="submit"
-            size="large"
-            className={classes.bottomSpace}
-            disabled={!isValid && dirty}
-          >
-            Save
-          </Button>
+          {/* <Button */}
+          {/*   color="primary" */}
+          {/*   variant="contained" */}
+          {/*   type="submit" */}
+          {/*   size="large" */}
+          {/*   className={classes.bottomSpace} */}
+          {/*   disabled={!isValid && dirty} */}
+          {/* > */}
+          {/*   Save */}
+          {/* </Button> */}
         </Form>
       )}
     </Formik>

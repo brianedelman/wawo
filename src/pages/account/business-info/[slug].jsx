@@ -47,7 +47,7 @@ const BusinessInfo = () => {
   };
 
   return (
-    <AccountWrapper contained={false} title="My Profile">
+    <AccountWrapper contained={false} title="My Business Details">
       <UserBusinessLinks path="/account/business-info/" user={user} />
       <Box mb={3} className={classes.contained}>
         <BusinessInfoForm

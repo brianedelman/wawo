@@ -102,7 +102,6 @@ class BusinessSerializer(serializers.ModelSerializer):
             "price_point",
             "price_point_display",
             "main_image",
-            "hero_image",
             "images",
             "carousel_images",
             "events",

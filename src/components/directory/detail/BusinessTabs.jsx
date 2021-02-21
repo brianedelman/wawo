@@ -21,7 +21,7 @@ function BusinessTabs({ currentTab, setTab, tabs }) {
         scrollButtons="on"
         aria-label="business info tabs"
       >
-        <Tab label="About" {...a11yProps(0)} />
+        <Tab label="About the Brand" {...a11yProps(0)} />
         {tabs.map((item, idx) => (
           <Tab key={idx} label={item.label} {...a11yProps(idx + 1)} />
         ))}

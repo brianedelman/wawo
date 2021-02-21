@@ -58,7 +58,7 @@ const BusinessSocial = () => {
   };
 
   return (
-    <AccountWrapper contained={false} title="My Profile">
+    <AccountWrapper contained={false} title="My Business Details">
       <UserBusinessLinks path="/account/business-social/" user={user} />
 
       <Box mb={3} className={classes.contained}>

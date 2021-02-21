@@ -58,8 +58,8 @@ const BusinessPricePoint = () => {
   };
 
   return (
-    <AccountWrapper contained={false} title="My Profile">
-      <UserBusinessLinks path="/account/business-social/" user={user} />
+    <AccountWrapper contained={false} title="My Business Details">
+      <UserBusinessLinks path="/account/business-price-point/" user={user} />
 
       <Box mb={3} className={classes.contained}>
         <PricePointForm

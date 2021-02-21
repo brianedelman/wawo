@@ -10,10 +10,12 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Router from 'next/router';
 
-import Link from 'components/router/Link';
+// import Link from 'components/router/Link';
 import { useCurrentUser, logOut } from 'models/user';
 
 const AccountMenu = ({ linkClassName }) => {
+  // TODO add back
+  console.log(linkClassName);
   const anchorRef = useRef(null);
   const navMenuState = usePopupState({
     variant: 'popover',
@@ -112,9 +114,10 @@ const AccountMenu = ({ linkClassName }) => {
           </Menu>
         </>
       ) : (
-        <Link className={linkClassName} href="/sign-up">
-          Sign Up
-        </Link>
+        /* <Link className={linkClassName} href="/sign-up"> */
+        /*   Sign Up */
+        /* </Link> */
+        <></>
       )}
     </>
   );

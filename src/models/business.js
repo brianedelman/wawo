@@ -47,7 +47,6 @@ function useBusinessSWR({ user, slug }) {
   );
 
   const business = data;
-  console.log(business);
   return { business, error, mutate };
 }
 
