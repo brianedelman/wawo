@@ -43,7 +43,7 @@ function useBusinessSWR({ user, slug }) {
         method: 'get',
         url: query,
       }).then(response => response.data),
-    { shouldRetryOnError: false }
+    { shouldRetryOnError: false, revalidateOnFocus: false }
   );
 
   const business = data;

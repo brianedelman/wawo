@@ -19,7 +19,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import CategoryInfo from 'components/directory/CategoryInfo';
 import AutoCompleteField from 'components/forms/fields/AutoCompleteField';
 import InputField from 'components/forms/fields/InputField';
-import { getCategories } from 'models/forms';
+import { URLS } from 'constants.js';
 
 const useStyles = makeStyles(theme => ({
   filterWrapper: {
@@ -112,9 +112,10 @@ function Filters({ values, handleChange, filteredCategory, ...rest }) {
               label="Category"
               value={values.category}
               optionLabel={option => `${option.name}`}
-              callback={getCategories}
+              callbackURL={URLS.api.categories}
               className={classes.field}
               disabled={false}
+              enableSearch={false}
               {...rest}
             />
             <FormControl variant="filled" className={classes.formControl}>

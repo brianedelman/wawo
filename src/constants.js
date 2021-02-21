@@ -37,7 +37,6 @@ const URLS = {
   privacy: 'https://www.wearewomenowned.com/privacy-policy/',
   api: {
     directory: `${DIRECTORY_BASE}businesses/`,
-    directorySlugs: `${DIRECTORY_BASE}business-slugs/`,
     categories: `${DIRECTORY_BASE}categories/`,
     userMe: '/auth/users/me/',
   },

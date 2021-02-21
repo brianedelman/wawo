@@ -142,19 +142,8 @@ export async function getStaticProps({ params }) {
   };
 }
 export async function getStaticPaths() {
-  const results = [];
-  // TODO: I think this is a blessed approach to just give static paths nothing, but might be worth
-  // looking into someday
-  //   const { data } = await axios.get(URLS.api.directorySlugs);
-
-  const paths = results.map(item => {
-    return {
-      params: { ...item },
-    };
-  });
-
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 }

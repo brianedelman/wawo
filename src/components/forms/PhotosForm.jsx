@@ -1,11 +1,10 @@
-import { PROPTYPES } from 'constants.js';
+import { PROPTYPES, URLS } from 'constants.js';
 import PropTypes from 'prop-types';
 import { Form, Formik } from 'formik';
 
 import { Typography, Grid } from '@material-ui/core';
 import AutoCompleteField from 'components/forms/fields/AutoCompleteField';
 import { makeStyles } from '@material-ui/core/styles';
-import { getCategories } from 'models/forms';
 
 import { BusinessPricePointSchema } from 'models/business';
 
@@ -60,7 +59,7 @@ const PhotosForm = ({ business, handleBusinessFormSubmit }) => {
                 label="Category"
                 helperText="Choose all that apply"
                 optionLabel={option => `${option.name}`}
-                callback={getCategories}
+                callbackURL={URLS.api.categories}
                 className={classes.field}
                 disabled={false}
               />

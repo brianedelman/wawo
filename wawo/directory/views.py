@@ -8,18 +8,10 @@ from django_filters import rest_framework as filters
 from .constants import BusinessType
 from .models import Business, BusinessCategory
 from .permission import IsBusinessUser
-from .serializers import (
-    BusinessCategorySerializer,
-    BusinessSerializer,
-    BusinessSlugSerializer,
-)
+from .serializers import BusinessCategorySerializer, BusinessSerializer
 
 
-class BusinessPagination(PageNumberPagination):
-    page_size = 12
-    page_size_query_param = "page_size"
-    max_page_size = 25
-
+class BasePagination(PageNumberPagination):
     def get_paginated_response(self, data, component_count=None):
         # more attr is needed by select2 inifinite scroll
         return Response(
@@ -35,9 +27,10 @@ class BusinessPagination(PageNumberPagination):
         )
 
 
-class BusinessSlugPagination(PageNumberPagination):
-    page_size = 255
-    max_page_size = 255
+class BusinessPagination(BasePagination):
+    page_size = 12
+    page_size_query_param = "page_size"
+    max_page_size = 25
 
 
 class BusinessFilter(filters.FilterSet):
@@ -99,12 +92,22 @@ class BusinessViewSet(viewsets.ModelViewSet):
     filterset_class = BusinessFilter
 
 
-class BusinessSlugViewSet(viewsets.ModelViewSet):
+class BusinessCategoryPagination(BasePagination):
+    page_size = 10
+    max_page_size = 10
 
-    queryset = Business.objects.all()
-    serializer_class = BusinessSlugSerializer
-    permission_classes = [IsBusinessUser]
-    pagination_class = BusinessSlugPagination
+
+class BusinessCategoryFilter(filters.FilterSet):
+    search = filters.CharFilter(method="filter_slug", label="Slug")
+
+    class Meta:
+        model = BusinessCategory
+        fields = [
+            "slug",
+        ]
+
+    def filter_slug(self, queryset, name, value):  # pylint: disable=unused-argument
+        return queryset.filter(slug__istartswith=value)
 
 
 class BusinessCategoryViewSet(viewsets.ModelViewSet):
@@ -112,3 +115,5 @@ class BusinessCategoryViewSet(viewsets.ModelViewSet):
     queryset = BusinessCategory.objects.all()
     serializer_class = BusinessCategorySerializer
     permission_classes = [IsBusinessUser]
+    pagination_class = BusinessCategoryPagination
+    filterset_class = BusinessCategoryFilter

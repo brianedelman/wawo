@@ -61,6 +61,7 @@
     "formik-material-ui-lab": "^0.0.8",
     "import": "^0.0.6",
     "interweave": "^12.5.0",
+    "lodash": "^4.17.21",
     "material-ui-popup-state": "^1.6.1",
     "next": "^10.0.2",
     "next-build-id": "^3.0.0",
@@ -72,7 +73,7 @@
     "react-instagram-authless-feed": "jamesmoriarty/react-instagram-authless-feed#v1.1.1",
     "react-share": "^4.3.1",
     "react-slick": "^0.28.0",
-    "swr": "^0.2.3",
+    "swr": "^0.4.2",
     "yup": "^0.28.3"
   },
   "husky": {

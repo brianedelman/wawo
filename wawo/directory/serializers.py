@@ -145,12 +145,3 @@ class BusinessSerializer(serializers.ModelSerializer):
     #     instance.client = get_object_or_404(Client, id=client.get("id"))
     #     instance.save()
     #     return super().update(instance, validated_data)
-
-
-class BusinessSlugSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Business
-
-        fields = [
-            "slug",
-        ]
