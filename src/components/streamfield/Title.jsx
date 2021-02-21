@@ -56,7 +56,7 @@ Title.propTypes = {
     component: PropTypes.string,
     colorOverride: PropTypes.string,
     backgroundColor: PropTypes.string,
-    alignment: PropTypes.oneOf('left', 'center', 'right').isRequired,
+    alignment: PropTypes.oneOf(['left', 'center', 'right']).isRequired,
     containment: PropTypes.string.isRequired,
   }).isRequired,
 };
