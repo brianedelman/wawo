@@ -18,21 +18,37 @@ const useStyles = makeStyles(theme => ({
   contained: {
     maxWidth: '480px',
   },
+  sidebarSpacing: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  sidebarRightSpacing: {
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(4),
+    },
+  },
 }));
 
 const AccountWrapper = ({ title, contained, children }) => {
   const classes = useStyles();
-  console.log(contained);
   return (
     <Container className={classes.paper} component="main" maxWidth="lg">
-      <Typography variant="h1">{title}</Typography>
-      <hr />
       <Grid container spacing={2}>
-        <Grid item xs={12} md={3}>
+        <Grid className={classes.sidebarSpacing} item xs={1} />
+        <Grid item xs={11} md={9}>
+          <Typography className={classes.sidebarRightSpacing} variant="h1">
+            {title}
+          </Typography>
+          <hr />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={1} md={3}>
           <AccountSidebar />
         </Grid>
 
-        <Grid item xs={12} md={9}>
+        <Grid item xs={11} md={9}>
           <Box
             className={clsx(classes.wrapper, contained && classes.contained)}
           >

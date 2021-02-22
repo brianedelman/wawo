@@ -12,8 +12,20 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(1),
       minWidth: '40px',
     },
+    '& .active .MuiTypography-root': {
+      [theme.breakpoints.up('md')]: {
+        textDecoration: 'underline',
+        textUnderlineOffset: `${theme.spacing(1)}px`, // NOTE: support could be better
+      },
+    },
+    '&:hover .MuiTypography-root': {
+      textDecoration: 'underline',
+      textUnderlineOffset: `${theme.spacing(1)}px`, // NOTE: support could be better
+    },
     '& .active': {
-      borderBottom: `1px solid ${theme.palette.grey[500]}`,
+      [theme.breakpoints.down('sm')]: {
+        borderBottom: `1px solid ${theme.palette.grey[500]}`,
+      },
     },
   },
   nested: {

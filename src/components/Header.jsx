@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   appBar: {
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
+    zIndex: theme.zIndex.drawer + 1,
   },
   mainMenu: {
     '& .MuiButtonBase-root:last-child .MuiIconButton-root': {
