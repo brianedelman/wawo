@@ -16,10 +16,10 @@ class ImageSerializer(serializers.ModelSerializer):
             "focal_point_y",
             "focal_point_height",
             "focal_point_width",
+            "alt",
         ]
 
     def get_scaled_url(self, obj):
-
         thumbnail = obj.get_rendition("scale-100")
         url = thumbnail.url
 

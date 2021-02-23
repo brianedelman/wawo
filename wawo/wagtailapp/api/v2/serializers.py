@@ -6,6 +6,23 @@ from wagtail.core import fields as wagtailcore_fields
 from wagtail.core.blocks import StreamBlock
 
 from wawo.wagtailapp.blocks import ComponentStreamBlock
+from wawo.wagtailapp.serializers import ImageSerializer
+
+
+class PageSocialImageField(Field):
+    """
+    Serializes the "social_image" field for pages.
+    Example:
+    """
+
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        try:
+            return ImageSerializer(page.social_image).data
+        except Exception:
+            return None
 
 
 class StreamField(Field):
@@ -30,3 +47,4 @@ class CustomPageSerializer(PageSerializer):
     serializer_field_mapping.update(
         {wagtailcore_fields.StreamField: StreamField,}
     )
+    social_image = PageSocialImageField(read_only=True)

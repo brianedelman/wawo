@@ -9,6 +9,7 @@ import { CssBaseline } from '@material-ui/core';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 import NProgress from 'nprogress';
+import { DefaultSeo } from 'next-seo';
 
 import theme from 'theme/theme';
 import { CurrentUserProvider } from 'models/user';
@@ -57,10 +58,10 @@ export default function App(props) {
     level: Sentry.Severity.Debug,
   });
 
+  // TODO default seo noIndex property on dev only
   return (
     <>
       <Head>
-        <title>We Are Women Owned</title>
         {!user ? (
           <link
             rel="preload"
@@ -74,6 +75,28 @@ export default function App(props) {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
+      <DefaultSeo
+        defaultTitle="We Are Women Owned"
+        title="Home"
+        titleTemplate="We Are Women Owned | %s"
+        openGraph={{
+          type: 'website',
+          url: 'https://www.wearewomenowned.com/',
+          site_name: 'WAWO',
+          images: [
+            {
+              url: 'https://www.wearewomenowned.com/images/wawo.jpg',
+              width: '1024',
+              height: '683',
+              alt: 'We Are Women Owned',
+            },
+          ],
+        }}
+        twitter={{
+          site: '@weareowmenowned',
+          cardType: 'summary_large_image',
+        }}
+      />
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

@@ -10,7 +10,9 @@ const GENERIC_FIELD_ERROR = "Something's not right";
 const API_BASE = '/backend/';
 const DIRECTORY_BASE = `${API_BASE}directory/`;
 // TODO: this is a temporary mapping to external/internal urls as we build things out
+// TODO site should make sure to match whatever the domain is
 const URLS = {
+  site: 'https://directory.wearewomenowned.com', // NOTE: no trailing slash
   about: 'https://www.wearewomenowned.com/about/',
   contact: 'https://www.wearewomenowned.com/contact/',
   events: {

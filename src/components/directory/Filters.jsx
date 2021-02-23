@@ -115,7 +115,6 @@ function Filters({ values, handleChange, filteredCategory, ...rest }) {
               callbackURL={URLS.api.categories}
               className={classes.field}
               disabled={false}
-              enableSearch={false}
               {...rest}
             />
             <FormControl variant="filled" className={classes.formControl}>

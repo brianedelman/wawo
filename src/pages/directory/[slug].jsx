@@ -3,6 +3,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'util/axios';
 import { URLS } from 'constants.js';
+import { NextSeo } from 'next-seo';
 
 import { Grid, Container, Typography } from '@material-ui/core';
 
@@ -84,6 +85,21 @@ const DirectoryDetailPage = ({ business }) => {
   ];
   return (
     <>
+      <NextSeo
+        title={business.name}
+        description={business.shortDescription}
+        openGraph={{
+          url: `${URLS.site}/${business.slug}`,
+          title: business.name,
+          description: business.shortDescription,
+          images: [
+            {
+              url: business.mainImage,
+              alt: business.name,
+            },
+          ],
+        }}
+      />
       <Container maxWidth="md" disableGutters>
         <SliderComponentNoSSR images={business.carouselImages} />
       </Container>

@@ -10,6 +10,7 @@ from .serializers import CustomPageSerializer
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     permission_classes = (permissions.AllowAny,)
     base_serializer_class = CustomPageSerializer
+    meta_fields = PagesAPIViewSet.meta_fields + ["social_image"]
 
     def find_object(self, queryset, request):  # noqa: inconsistent-return-statements
         site = Site.find_for_request(request)

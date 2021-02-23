@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Container, Hidden, Typography } from '@material-ui/core';
 import { Pagination, PaginationItem } from '@material-ui/lab';
 import { Formik, Form } from 'formik';
+import { NextSeo } from 'next-seo';
 
 import Link from 'components/router/Link';
 import BusinessGrid from 'components/directory/BusinessGrid';
@@ -98,8 +99,27 @@ function Businesses({ businesses, totalPages }) {
     })();
   }, [router.query]);
 
+  const description =
+    'The We Are Women Owned Directory is the go-to place for all women and female-identifying owned businesses.';
   return (
     <>
+      <NextSeo
+        title="Businesses"
+        description={description}
+        openGraph={{
+          url: `${URLS.site}${router.asPath}`,
+          title: 'Businesses',
+          description,
+          images: [
+            {
+              url: `${URLS.site}/images/directory.jpg`,
+              width: '1024',
+              height: '683',
+              alt: 'Directory Businesses',
+            },
+          ],
+        }}
+      />
       <Container maxWidth="md">
         <Box
           display="flex"
